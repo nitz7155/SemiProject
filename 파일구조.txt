@@ -1,0 +1,33 @@
+src/
+pages/
+Home.jsx
+BookDetail.jsx
+MyPage.jsx
+Auth.jsx (선택)
+
+components/
+Header.jsx (검색 인풋 포함)
+Footer.jsx
+BookCard.jsx
+SearchResultList.jsx
+ReviewList.jsx
+ReviewForm.jsx
+QnaList.jsx
+QnaForm.jsx
+Tabs.jsx
+
+hooks/
+useKakaoBooksSearch.js
+
+api/
+client.js (fetch 래퍼)
+books.js (search/detail)
+reviews.js
+qna.js
+auth.js (선택)
+
+state/
+authStore.js (Context/Zustand 중 택1)
+
+utils/
+format.js

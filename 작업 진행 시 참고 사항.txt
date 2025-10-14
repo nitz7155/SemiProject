@@ -1,0 +1,889 @@
+# 도서정보 공유사이트 – 실행 계획 v2 (초급자 친화형)
+
+> 본 문서는 **초급 구현 난이도**를 기준으로 기존 v1을 간소화/재배치한 전략입니다. v1 내용은 문서 하단에 보존합니다.
+
+---
+
+## 0. 실행 요약(초급 버전)
+
+* **목표**: 7일 안에 “검색 → 상세 → 리뷰 작성/목록”까지 **엔드투엔드 흐름**을 완성한다.
+* **전략**: 기능을 얇고 길게 한 줄로 잇는 **수직 슬라이스(Vertical Slice)** 방식. 복잡 기능(인증, 추천 알고리즘, 해시태그, 권한)은 과감히 제외.
+* **기술 축소**: 로그인 없이 **게스트 단일 사용자**로 시작 → 마지막 날 이메일 로그인(선택). DB는 초기 **SQLite**로 개발, 마지막에 **PostgreSQL**로 연결만 교체.
+* **외부 API**: 카카오 도서 API는 FastAPI **프록시 2개**만 구현(`/search`, `/detail`).
+
+---
+
+## A. 서비스 구현도(초급 버전)
+
+### A-1. 전체 아키텍처(배치 다이어그램)
+
+```mermaid
+flowchart LR
+  subgraph Client[사용자 브라우저]
+    R[React 앱(Vite)]
+  end
+
+  subgraph Server[백엔드 서버]
+    F[FastAPI]
+    DB[(SQLite→PostgreSQL)]
+  end
+
+  subgraph External[외부 서비스]
+    K[Kakao Books API]
+  end
+
+  R -- HTTP/HTTPS --> F
+  F -- SQLAlchemy --> DB
+  F -- REST(Proxy) --> K
+
+  classDef c1 fill:#eef,stroke:#88a;
+  classDef c2 fill:#efe,stroke:#8a8;
+  classDef c3 fill:#fee,stroke:#a88;
+
+  class R c1
+  class F,DB c2
+  class K c3
+```
+
+### A-2. 메인 흐름(검색 → 상세 → 리뷰)
+
+```mermaid
+sequenceDiagram
+  participant U as 사용자
+  participant R as React(프론트)
+  participant F as FastAPI(백엔드)
+  participant K as Kakao API
+  participant D as DB(SQLite/PG)
+
+  U->>R: 검색어 입력 후 엔터
+  R->>F: GET /api/books/search?q=키워드&page=1
+  F->>K: GET /v3/search/book?query=키워드
+  K-->>F: 검색 결과 JSON
+  F-->>R: 책 리스트(JSON)
+  R-->>U: 카드 리스트 렌더링
+
+  U->>R: 책 카드 클릭(상세)
+  R->>F: GET /api/books/{isbn13}
+  F->>D: SELECT book by isbn13 (없으면 외부 조회)
+  alt 캐시 없음
+    F->>K: GET /v3/search/book?target=isbn
+    K-->>F: 상세 JSON
+    F->>D: UPSERT books
+  end
+  F-->>R: 상세 JSON
+  R-->>U: 서지 정보 표시
+
+  U->>R: 리뷰 작성(별점+텍스트) 제출
+  R->>F: POST /api/books/{isbn13}/reviews
+  F->>D: INSERT review (+ensure book exists)
+  D-->>F: OK
+  F-->>R: 생성된 리뷰 JSON
+  R-->>U: 목록 상단에 즉시 반영
+```
+
+### A-3. 모듈 구성(코드 레벨 개요)
+
+```mermaid
+flowchart TB
+  subgraph Frontend
+    H[Header+Search]
+    L[SearchResultList]
+    B[BookDetail]
+    RV[ReviewForm+List]
+    APIc[api/client.js]
+    APIb[api/books.js]
+    APIr[api/reviews.js]
+  end
+
+  subgraph Backend
+    main[main.py]
+    r_books[routers/books.py]
+    r_reviews[routers/reviews.py]
+    models[(models/*.py)]
+    schemas[schemas/*.py]
+    db[db/session.py]
+  end
+
+  H-->L
+  L-->B
+  B-->RV
+  APIc-->APIb
+  APIc-->APIr
+  H & L & B & RV --> APIc
+
+  r_books-->models
+  r_reviews-->models
+  r_books-->schemas
+  r_reviews-->schemas
+  main-->r_books
+  main-->r_reviews
+  models-->db
+```
+
+### A-4. 배포/실행(개발용)
+
+* 프론트: `npm run dev` (Vite)
+* 백엔드: `uvicorn app.main:app --reload`
+* DB: SQLite 파일(`app.db`) → 최종 발표 전날 DSN만 PostgreSQL로 교체
+
+---
+
+## 1. 범위 축소(MVP-초급)
+
+범위 축소(MVP-초급)
+**반드시 완료**
+
+1. 메인 검색바(제목 기준) → 결과 리스트 카드 10개
+2. 상세페이지(표지/제목/저자/출판사/ISBN/소개)
+3. 리뷰: 작성(Create) + 목록(Read)만 (수정/삭제는 제외)
+4. QnA: **보류**(UI 틀만, 실제 저장/조회는 제외 또는 마지막 날 선택 과제)
+5. 마이페이지: **보류**(데모용 링크만, 실제 기능 제외)
+6. 추천: **보류**(최근 검색어 칩만 프론트 로컬 상태로 표시)
+
+**여유 시(선택)**
+
+* 리뷰 삭제(Delete) 1건만 추가
+* QnA 질문 등록만(단일 테이블)
+* 간단 이메일 로그인(해시만, 회원가입 없이 고정 계정)
+
+---
+
+## 2. 개발 원칙(초급자 가이드)
+
+* **항상 동작하는 버전 유지**: 매일 끝에 검색→상세→리뷰 흐름이 돌아가야 함.
+* **초기 목업 → 실제 API**: Day1~2는 **프론트에서 목업 JSON**으로 빠르게 화면 완성 → Day3부터 FastAPI 연결.
+* **테이블/엔드포인트 최소화**: 리뷰만 먼저 끝내고, QnA는 박스만.
+* **상태관리 단순화**: `useState` + URLQuery만 사용. 전역상태/복잡한 라이브러리 금지.
+* **에러는 토스트 1종**: "문제가 발생했습니다. 다시 시도해주세요." 정도의 단일 패턴.
+
+---
+
+## 3. 초간단 백엔드/DB 설계
+
+### 3.1 엔드포인트(최소)
+
+* `GET /api/books/search?q=&page=` → 카카오 API 프록시(서버키 보호)
+* `GET /api/books/{isbn13}` → 상세(캐시 없으면 외부 호출)
+* `GET /api/books/{isbn13}/reviews` → 리뷰 목록
+* `POST /api/books/{isbn13}/reviews` → 리뷰 작성(게스트)
+
+> 인증 없음. CORS 허용. 응답 스키마를 **pydantic**으로 고정.
+
+### 3.2 스키마(최소)
+
+```
+books(
+  id PK, isbn13 UNIQUE, title, authors, publisher, thumbnail_url, contents
+)
+reviews(
+  id PK, book_id FK->books, rating INT(1..5), content TEXT, created_at
+)
+```
+
+* **저장 기준**: 상세 페이지 최초 진입 시 그 책이 `books`에 없으면 upsert.
+* **DB 전략**: 개발은 **SQLite**(파일 하나)로 시작 → 마지막 날 DSN만 PostgreSQL로 교체.
+
+---
+
+## 4. 프런트 화면(최소)
+
+* **Home**: 검색 인풋 + 결과 카드 grid + (초기) 최근검색 칩(프론트 상태)
+* **BookDetail**: 기본 서지정보 + 탭(리뷰)만 활성화
+* **Review**: 폼(별점 선택 + 200자 텍스트) + 목록(최신순)
+
+> `useEffect`로 검색/상세 fetch, `useRef`는 리뷰 입력 포커스에만 사용.
+
+---
+
+## 5. 7일 일정(초급 버전)
+
+* **D1**: Vite + React 세팅, 라우팅(Home/Detail), 목업 JSON으로 카드 10개 그리기
+* **D2**: 상세 화면 골격, 탭(리뷰) UI, 리뷰 폼/목록 **프론트 목업** 연결
+* **D3**: FastAPI 프로젝트 생성, `/search` 프록시, `/detail` 프록시(카카오) 완료
+* **D4**: SQLite 연결, `books`/`reviews` 모델, `GET/POST reviews` 구현
+* **D5**: 프론트에서 실제 API 연동(목업 제거), 오류 토스트/로딩 처리
+* **D6**: 페이지네이션(다음/이전), 간단 스타일링, 빌드/배포 스크립트(로컬)
+* **D7**: 최적화·리팩터(폴더정리), 데모 스크립트/스크린샷, (선택) PostgreSQL DSN 교체
+
+---
+
+## 6. 데모 정의(Definition of Done)
+
+* 검색어 입력 → 결과 10개 노출
+* 결과 1개 클릭 → 상세 정보 표시
+* 리뷰 별점/텍스트 작성 후 등록 → 목록 최상단에 보이고 새로고침 후에도 유지
+* 에러 시 토스트 노출, 무한 로딩 없음
+
+---
+
+## 7. 위험요인 줄이기
+
+* **카카오 쿼터**: 프론트 목업으로 먼저 개발, 실제 호출은 디테일 진입 시 1회
+* **DB 설치 부담**: SQLite로 진행, 마지막에 Postgres 교체(선택)
+* **인증 복잡도**: 미도입(게스트). 계정은 이후 확장 항목으로 분리
+
+---
+
+## 8. 확장(선택)
+
+* 리뷰 삭제 1건, QnA 질문 등록 1테이블, 간단 로그인(고정 계정)
+
+---
+
+## 9. 오늘의 액션(10/14, 초급)
+
+* [ ] Vite+React 생성, 라우터 설정
+* [ ] Home: 검색 인풋 + 카드 그리드(목업 데이터)
+* [ ] Detail: 서지정보 섹션 골격 + 리뷰 탭 UI(목업)
+* [ ] 깃 리포 초기화 + README(로컬 실행 방법 5줄)
+
+---
+
+## B. 프론트 목업 제시
+
+> 아래 목업은 **(1) 1차 완료 목업(중간 데모용)**과 **(2) 최종 완료 목업** 두 버전으로 구성됩니다. 코드 스니펫은 **프론트 목업** 기준의 최소 동작 JSX만 포함합니다.
+
+### B-1. 1차 완료 프론트 목업(중간 데모용, 10/15 목표)
+
+#### 화면 구성(와이어프레임)
+
+```
+[Header]
+ ├─ Logo | [검색 입력] [검색 버튼] | 로그인(비활성)
+
+[Main]
+ ├─ 검색 결과(Grid 2~4열 카드)
+ │   ├─ BookCard: 표지, 제목, 저자, 출판사, ISBN
+ │   └─ 더보기 버튼(간단 페이지네이션)
+ └─ (초기 빈 상태 시) 최근 검색어 칩들
+
+[Footer]
+```
+
+**상세 페이지**
+
+```
+[BookDetail]
+ ├─ 상단: 표지(좌) | 서지 정보(우)
+ └─ 탭: [리뷰]
+     ├─ ReviewForm(별점 ★☆☆☆☆, 텍스트 200자)
+     └─ ReviewList(최신순)
+```
+
+#### 라우트
+
+* `/` : Home(검색/결과)
+* `/books/:isbn13` : BookDetail(리뷰 탭만 활성)
+
+#### 컴포넌트 트리
+
+```
+<App>
+  <Header>
+  <Routes>
+    <Home>
+      <SearchResultList>
+        <BookCard/>
+    <BookDetail>
+      <Tabs>
+        <ReviewForm/>
+        <ReviewList/>
+  <Footer>
+```
+
+#### 상태/데이터 흐름(목업 기준)
+
+* Home: `useState`에 목업 데이터 배열 유지 → 검색 시 필터링
+* BookDetail: URL `isbn13`로 목업 상세 조회
+* Review: 로컬 상태에 추가(새로고침 시 초기화: 데모에서는 OK)
+
+#### 최소 JSX 스니펫
+
+```jsx
+// src/pages/Home.jsx
+import { useState } from "react";
+import { Link } from "react-router-dom";
+const MOCK = [
+  { isbn13:"9788998139766", title:"리액트를 다루는 기술", authors:"김민준", publisher:"길벗", thumbnail:"" },
+  { isbn13:"9791162243077", title:"클린 아키텍처", authors:"로버트 C. 마틴", publisher:"인사이트", thumbnail:"" },
+];
+export default function Home(){
+  const [q,setQ]=useState("");
+  const filtered = MOCK.filter(b=> b.title.toLowerCase().includes(q.toLowerCase()));
+  return (
+    <div className="container">
+      <div className="search">
+        <input value={q} onChange={e=>setQ(e.target.value)} placeholder="도서 제목을 검색" />
+        <button>검색</button>
+      </div>
+      <div className="grid">
+        {(q?filtered:MOCK).map(b=> (
+          <Link key={b.isbn13} to={`/books/${b.isbn13}`} className="card">
+            <div className="thumb"/>
+            <div className="meta">
+              <h3>{b.title}</h3>
+              <p>{b.authors} · {b.publisher}</p>
+              <small>ISBN: {b.isbn13}</small>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
+```
+
+```jsx
+// src/pages/BookDetail.jsx
+import { useParams } from "react-router-dom";
+import { useState } from "react";
+const MOCK_DETAIL = {
+  "9788998139766": { title:"리액트를 다루는 기술", authors:"김민준", publisher:"길벗", contents:"리액트 기본서" }
+};
+export default function BookDetail(){
+  const { isbn13 } = useParams();
+  const book = MOCK_DETAIL[isbn13] || { title:"제목", authors:"저자", publisher:"출판사", contents:"요약" };
+  const [reviews,setReviews]=useState([]);
+  const [rating,setRating]=useState(5);
+  const [content,setContent]=useState("");
+  const addReview=()=>{ if(!content.trim()) return; setReviews([{rating,content,ts:Date.now()},...reviews]); setContent(""); };
+  return (
+    <div className="detail">
+      <header className="hero">
+        <div className="cover"/>
+        <div className="info">
+          <h2>{book.title}</h2>
+          <p>{book.authors} · {book.publisher}</p>
+          <p className="desc">{book.contents}</p>
+        </div>
+      </header>
+      <section className="tabs">
+        <button className="tab active">리뷰</button>
+      </section>
+      <section className="reviews">
+        <div className="form">
+          <select value={rating} onChange={e=>setRating(Number(e.target.value))}>
+            {[5,4,3,2,1].map(n=> <option key={n} value={n}>{"★".repeat(n)}</option>)}
+          </select>
+          <input value={content} onChange={e=>setContent(e.target.value)} placeholder="리뷰를 남겨주세요 (200자)" maxLength={200} />
+          <button onClick={addReview}>등록</button>
+        </div>
+        <ul className="list">
+          {reviews.map(r=> <li key={r.ts}>{"★".repeat(r.rating)} {r.content}</li>)}
+        </ul>
+      </section>
+    </div>
+  );
+}
+```
+
+> 1차 목업의 목적: **UI 흐름 설명 + 클릭 시 전환 확인**. API 연동은 불필요.
+
+---
+
+### B-2. 최종 완료 프론트 목업(10/23 발표용)
+
+#### 화면 구성(와이어프레임)
+
+```
+[Header]
+ ├─ Logo | [검색 입력] [검색 버튼] | (선택) 로그인/마이
+
+[Main]
+ ├─ 검색 결과(Grid) + 페이지네이션(이전/다음)
+ └─ (초기) 최근 검색 칩 + 안내
+
+[BookDetail]
+ ├─ 상단: 표지/서지 + 평균 별점(계산)
+ └─ 탭: [리뷰]
+     ├─ ReviewForm(서버 POST)
+     └─ ReviewList(서버 GET, 최신순)
+
+[Footer]
+```
+
+#### 라우트
+
+* `/` : Home(실제 API 검색)
+* `/books/:isbn13` : BookDetail(실제 상세/리뷰 API 연동)
+
+#### 상태/데이터 흐름(실제 API)
+
+* Home: `fetch('/api/books/search?q=&page=')` → 결과/로딩/에러 3상태
+* BookDetail: `fetch('/api/books/:isbn13')`로 상세, `GET/POST /reviews`
+* Review: 등록 성공 시 낙관적 UI → 실패면 롤백/토스트
+
+#### 최소 JSX 스니펫(실제 API 연동용)
+
+```jsx
+// src/api/client.js
+export async function api(path, opts={}){
+  const res = await fetch(`/api${path}`, { headers:{"Content-Type":"application/json"}, ...opts });
+  if(!res.ok) throw new Error("API_ERROR");
+  return res.json();
+}
+```
+
+```jsx
+// src/pages/Home.jsx (API 연동)
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { api } from "../api/client";
+export default function Home(){
+  const [q,setQ]=useState("");
+  const [items,setItems]=useState([]);
+  const [loading,setLoading]=useState(false);
+  const [err,setErr]=useState(null);
+  const [page,setPage]=useState(1);
+  async function search(){
+    if(!q.trim()) return; setLoading(true); setErr(null);
+    try{ const data = await api(`/books/search?q=${encodeURIComponent(q)}&page=${page}`); setItems(data.items||[]); }
+    catch(e){ setErr(e.message); }
+    finally{ setLoading(false); }
+  }
+  useEffect(()=>{ /* optional: 초기 인기 검색어 */ },[]);
+  return (
+    <div className="container">
+      <div className="search">
+        <input value={q} onChange={e=>setQ(e.target.value)} placeholder="도서 제목을 검색" />
+        <button onClick={()=>{setPage(1); search();}}>검색</button>
+      </div>
+      {loading && <p>불러오는 중…</p>}
+      {err && <p>문제가 발생했습니다. 다시 시도해주세요.</p>}
+      <div className="grid">
+        {items.map(b=> (
+          <Link key={b.isbn13} to={`/books/${b.isbn13}`} className="card">
+            <div className="thumb"/>
+            <div className="meta">
+              <h3>{b.title}</h3>
+              <p>{b.authors} · {b.publisher}</p>
+            </div>
+          </Link>
+        ))}
+      </div>
+      <div className="pager">
+        <button disabled={page===1} onClick={()=>{setPage(p=>p-1); search();}}>이전</button>
+        <button onClick={()=>{setPage(p=>p+1); search();}}>다음</button>
+      </div>
+    </div>
+  );
+}
+```
+
+```jsx
+// src/pages/BookDetail.jsx (API 연동)
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { api } from "../api/client";
+export default function BookDetail(){
+  const { isbn13 } = useParams();
+  const [book,setBook]=useState(null);
+  const [reviews,setReviews]=useState([]);
+  const [rating,setRating]=useState(5);
+  const [content,setContent]=useState("");
+  const [loading,setLoading]=useState(true);
+  const [err,setErr]=useState(null);
+
+  useEffect(()=>{
+    (async()=>{
+      try{
+        const [b, r] = await Promise.all([
+          api(`/books/${isbn13}`),
+          api(`/books/${isbn13}/reviews`)
+        ]);
+        setBook(b); setReviews(r.items||[]);
+      }catch(e){ setErr(e.message); }
+      finally{ setLoading(false); }
+    })();
+  },[isbn13]);
+
+  async function submit(){
+    if(!content.trim()) return;
+    const optimistic = { id:Date.now(), rating, content };
+    setReviews(prev=>[optimistic, ...prev]);
+    setContent("");
+    try{
+      const created = await api(`/books/${isbn13}/reviews`, { method:"POST", body:JSON.stringify({rating, content})});
+      setReviews(prev=>[created, ...prev.filter(x=>x!==optimistic)]);
+    }catch(e){
+      setErr("리뷰 등록 실패");
+      setReviews(prev=>prev.filter(x=>x!==optimistic));
+    }
+  }
+
+  if(loading) return <p>불러오는 중…</p>;
+  if(err) return <p>문제가 발생했습니다. 다시 시도해주세요.</p>;
+  return (
+    <div className="detail">
+      <header className="hero">
+        <div className="cover"/>
+        <div className="info">
+          <h2>{book.title}</h2>
+          <p>{book.authors} · {book.publisher}</p>
+          <p className="desc">{book.contents}</p>
+        </div>
+      </header>
+      <section className="tabs"><button className="tab active">리뷰</button></section>
+      <section className="reviews">
+        <div className="form">
+          <select value={rating} onChange={e=>setRating(Number(e.target.value))}>
+            {[5,4,3,2,1].map(n=> <option key={n} value={n}>{"★".repeat(n)}</option>)}
+          </select>
+          <input value={content} onChange={e=>setContent(e.target.value)} placeholder="리뷰를 남겨주세요 (200자)" maxLength={200} />
+          <button onClick={submit}>등록</button>
+        </div>
+        <ul className="list">
+          {reviews.map(r=> <li key={r.id || r.ts}>{"★".repeat(r.rating)} {r.content}</li>)}
+        </ul>
+      </section>
+    </div>
+  );
+}
+```
+
+#### 스타일 가이드(간단)
+
+* 그리드: `grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px;`
+* 카드: `padding:12px; border:1px solid #eee; border-radius:10px;`
+* 로딩/오류: 문구 1종으로 통일
+
+#### 중간→최종 차이 체크리스트
+
+* [x] 목업 데이터 → 실 API 연동
+* [x] 검색 페이지네이션 버튼
+* [x] 상세 진입 시 DB 캐시(백엔드), 프론트는 변화 없음
+* [x] 리뷰 낙관적 업데이트 + 실패 롤백
+
+---
+
+> 두 목업 버전은 **동일한 컴포넌트 구조**를 유지하되, 데이터 공급원이 "목업"에서 "실제 API"로 전환되는 점이 핵심 차이입니다.
+
+---
+
+# (아카이브) 도서정보 공유사이트 – 실행 계획 v1
+
+작성일: 2025-10-14 (KST)
+작성자: 김성진 (Seong jin Kim)
+기간: 7일 스프린트(+발표 버퍼)
+
+---
+
+## 0. 한 줄 요약
+
+카카오 도서 API로 검색·상세 정보를 불러오고, 사용자 리뷰/별점과 QnA를 남길 수 있는 **경량 도서 정보 공유 웹앱**(React + FastAPI + PostgreSQL). 10/15 중간 데모(검색/상세/리뷰·QnA UI), 10/23 최종 발표(백엔드/DB 연동) 목표.
+
+---
+
+## 1. 목표/범위(MVP)
+
+**필수**
+
+1. 메인: 제목 검색(카카오 도서 API) → 결과 리스트/페이지네이션
+2. 상세: 책 기본 정보(표지, 제목, 저자, 출판사, ISBN, 소개)
+3. 리뷰: 별점(1~5), 코멘트 CRUD, 평균 별점 표시
+4. QnA: 질문/답변 쓰레드 CRUD
+5. 추천: 최근 검색 상위 + 별점 상위(간단 가중치) 추천 섹션
+6. 마이페이지: 내가 쓴 리뷰/질문/답변 목록
+
+**선택(여유 시)**
+
+* 관심 해시태그/주제 팔로우(태그 기반 추천)
+* 소셜 로그인(카카오) 또는 이메일 기반 로그인
+* 무한스크롤, 다중 키워드/저자 필터
+
+**비범위(이번 스프린트 제외)**
+
+* 복잡한 랭킹/추천 모델, 북마크 공유/팔로우 피드, 알림 푸시, 이미지 업로드(서버 스토리지)
+
+---
+
+## 2. 화면 구조
+
+### 2.1 메인 페이지
+
+* 헤더: 로고, 검색바, 로그인/마이
+* 바디 상단: 검색 결과(카드형)
+* 바디 중단(초기 빈 상태): 안내 카피 + 최근 검색 키워드 칩
+* 바디 하단: 추천 섹션(인기/맞춤)
+* 푸터: 간단 링크
+
+### 2.2 상세 페이지
+
+* 상단: 표지, 제목, 저자, 출판사, ISBN, 출간일, 소개
+* 하단 탭: [리뷰] [QnA]
+
+  * 리뷰: 평균 별점, 리뷰 작성폼, 리뷰 리스트(정렬: 최신/평점)
+  * QnA: 질문 작성, 질문 리스트(아코디언), 답변 폼
+
+### 2.3 마이페이지
+
+* 내 리뷰, 내 QnA, 내 평점, (선택)관심 태그 관리
+
+---
+
+## 3. 컴포넌트 설계(React)
+
+```
+src/
+  pages/
+    Home.jsx
+    BookDetail.jsx
+    MyPage.jsx
+    Auth.jsx (선택)
+  components/
+    Header.jsx (검색 인풋 포함)
+    Footer.jsx
+    BookCard.jsx
+    SearchResultList.jsx
+    ReviewList.jsx
+    ReviewForm.jsx
+    QnaList.jsx
+    QnaForm.jsx
+    Tabs.jsx
+  hooks/
+    useKakaoBooksSearch.js
+  api/
+    client.js (fetch 래퍼)
+    books.js (search/detail)
+    reviews.js
+    qna.js
+    auth.js (선택)
+  state/
+    authStore.js (Context/Zustand 중 택1)
+  utils/
+    format.js
+```
+
+* **상태 관리**: 초기엔 컴포넌트 state + URLSearchParams. 마이페이지/인증 붙일 때 Context/Zustand 고려.
+* **UX 포인트**: 낙관적 업데이트(리뷰/QnA), 에러 토스트, 로딩 스켈레톤.
+
+---
+
+## 4. 백엔드 아키텍처(FastAPI)
+
+* **프레임워크**: FastAPI
+* **ORM**: SQLAlchemy + alembic(마이그레이션)
+* **인증**: MVP는 로컬 이메일+비번(JWT) 또는 임시 게스트 계정(닉네임) 중 택1
+* **캐싱/스로틀**: 카카오 API 결과를 DB에 캐시(ISBN13 key). 간단한 rate-limit 미들웨어(분당 호출 제한).
+* **CORS**: React 도메인 허용.
+
+### 4.1 API 엔드포인트(초안)
+
+**Books**
+
+* `GET /api/books/search?q=&page=` → 카카오 API 프록시 + 캐시 저장
+* `GET /api/books/{isbn}` → 상세(우선 캐시 조회→없으면 외부 호출 후 저장)
+
+**Reviews**
+
+* `GET /api/books/{isbn}/reviews?sort=latest|rating`
+* `POST /api/books/{isbn}/reviews` (auth) {rating:int, content:str}
+* `PUT /api/reviews/{id}` (auth, owner)
+* `DELETE /api/reviews/{id}` (auth, owner)
+
+**QnA**
+
+* `GET /api/books/{isbn}/questions`
+* `POST /api/books/{isbn}/questions` (auth) {title, content}
+* `POST /api/questions/{qid}/answers` (auth) {content}
+* `PUT /api/questions/{qid}` / `PUT /api/answers/{aid}` (owner)
+* `DELETE /api/questions/{qid}` / `DELETE /api/answers/{aid}` (owner)
+
+**Users**
+
+* `POST /api/auth/signup` / `POST /api/auth/login`
+* `GET /api/me` (내 리뷰/QnA 요약)
+
+**Recommendations**
+
+* `GET /api/recommendations` → 최근 검색 상위 + 평균별점 상위 n개
+
+---
+
+## 5. 데이터베이스 스키마(PostgreSQL)
+
+```
+users(
+  id PK, email UNIQUE, password_hash, nickname, created_at
+)
+books(
+  id PK, isbn13 UNIQUE, title, authors, publisher, thumbnail_url, datetime, contents, meta JSONB, cached_at
+)
+reviews(
+  id PK, user_id FK->users, book_id FK->books, rating INT check 1..5, content TEXT,
+  created_at, updated_at
+)
+questions(
+  id PK, user_id FK->users, book_id FK->books, title, content, created_at, updated_at
+)
+answers(
+  id PK, question_id FK->questions, user_id FK->users, content, created_at, updated_at
+)
+search_logs(
+  id PK, user_id NULLABLE, keyword, created_at
+)
+book_tags(
+  id PK, name UNIQUE
+)
+book_tag_map(
+  book_id FK->books, tag_id FK->book_tags, PRIMARY KEY(book_id, tag_id)
+)
+```
+
+* **인덱스**: `books.isbn13`, `reviews.book_id`, `questions.book_id`, `answers.question_id`, `search_logs.keyword`(trigram)
+* **평균 별점**: 뷰 또는 `reviews` 집계로 API 레벨 캐시(예: 5분)
+
+---
+
+## 6. 카카오 도서 API 연동 전략
+
+* **프록시 서버 방식**: 프론트에서 직접 호출하지 않고 **FastAPI**가 카카오 API를 호출(키 보호).
+* **캐시 정책**: 검색/상세 응답을 `books`에 upsert, 상세 클릭 시 `cached_at` 기준 7일 경과면 갱신.
+* **필드 매핑**: isbn(10/13) 정규화 → 내부는 isbn13 기준 단일화.
+* **쿼터 대응**: 개발 중에는 키 사용량 로깅, 검색결과 페이지 크기 제한(예: 10).
+
+---
+
+## 7. 추천 로직(MVP)
+
+* **인기**: `search_logs.keyword` 빈도 상위 키워드를 카카오 재검색하여 카드 노출
+* **품질**: `reviews` 평균 별점 상위 + 리뷰 수 가중치(`score = avg*0.7 + log(1+count)*0.3`)
+* **개인화(선택)**: 사용자 최근 검색 키워드와 책 태그의 Jaccard 유사도 상위 n개
+
+---
+
+## 8. 일정/마일스톤
+
+### 전체 타임라인
+
+* **10/15(수) 중간 데모**: 프론트 MVP(검색/상세/리뷰·QnA UI), 카카오 API 프록시 임시 엔드포인트, 더미 사용자 세션
+* **10/23(목) 최종 발표**: 백엔드 & DB 연동 완료, 마이페이지, 추천, 간단 통합 테스트
+
+### 7일 스프린트(주말 포함)
+
+* **D1 (10/15)**: React 프로젝트 세팅, 헤더+검색바, 결과 리스트, 라우팅
+* **D2 (10/16)**: 상세 페이지 골격, 탭, BookCard/리스트 컴포넌트 정리
+* **D3 (10/17)**: 리뷰 UI(작성/목록) + 낙관적 업데이트, 토스트/로딩
+* **D4 (10/18)**: QnA UI(질문/답변) + 폼 검증, 빈상태/비동기 처리 패턴
+* **D5 (10/19)**: FastAPI 스캐폴딩, `/books/search`, `/books/{isbn}` 프록시 + CORS
+* **D6 (10/20)**: DB 스키마/마이그레이션, 리뷰/QnA CRUD API, JWT(간단)
+* **D7 (10/21)**: 마이페이지, 추천 API, 통합 테스트/버그픽스/배포 스크립트
+* **버퍼 (10/22~23)**: 데모 스크립트 정리, 스크린샷 캡처, README/슬라이드
+
+---
+
+## 9. 수용 기준(AC) & 데모 체크리스트
+
+**AC**
+
+* 검색어 입력→엔터→결과 카드 10개 이상 노출
+* 카드 클릭→상세로 이동, 필수 서지 정보 표시
+* 로그인 상태에서 리뷰/질문/답변 작성 가능, 새로고침 후에도 보존
+* 추천 섹션에 최소 6개 책 노출(인기/품질 혼합)
+
+**데모 시나리오**
+
+1. “해리포터” 검색→결과 스크롤(페이지네이션)
+2. 1권 클릭→상세→리뷰 작성(별점 5, 코멘트)
+3. QnA에 질문→즉시 답변 등록→스레드 표시
+4. 홈으로 이동→추천 섹션 설명(인기/평점)
+5. 마이페이지→방금 작성한 리뷰/QnA 확인
+
+---
+
+## 10. 리스크 & 대응
+
+* **카카오 API 쿼터/속도**: 서버 프록시 + 캐시 + 페이지 크기 제한
+* **인증 복잡도**: MVP는 이메일/비번 단순화(비밀번호 해시 필수). 소셜 로그인은 이후
+* **데이터 불일치(ISBN10/13)**: 정규화 유틸 작성, DB는 isbn13 고정
+* **시간 부족**: 우선순위 규칙(검색→상세→리뷰→QnA→마이→추천)
+
+---
+
+## 11. 개발 표준/품질
+
+* **프론트**: 컴포넌트 단위 테스트(React Testing Library), API 에러 핸들링 공통 래퍼
+* **백엔드**: pydantic 스키마 요청/응답 검증, 라우터 모듈 분리, pytest로 API 스모크 테스트
+* **DB**: alembic 마이그레이션, 샘플 시드 스크립트
+* **문서화**: README(로컬 실행/ENV/DB 마이그레이션), OpenAPI 자동 문서
+
+---
+
+## 12. 폴더 구조(예시)
+
+```
+frontend/
+  src/ ...
+  vite.config.ts
+backend/
+  app/
+    main.py
+    deps.py
+    core/config.py
+    routers/
+      books.py
+      reviews.py
+      qna.py
+      auth.py
+    models/
+      user.py, book.py, review.py, qna.py
+    schemas/
+      book.py, review.py, qna.py, user.py
+    db/
+      base.py, session.py
+  tests/
+  alembic/
+.env.example
+docker-compose.yml (선택: db, backend, pgadmin)
+```
+
+---
+
+## 13. 예시 스키마/엔드포인트 스니펫
+
+### 13.1 Pydantic (요약)
+
+```python
+class ReviewCreate(BaseModel):
+    rating: conint(ge=1, le=5)
+    content: constr(min_length=1, max_length=1000)
+```
+
+### 13.2 SQL(요약)
+
+```sql
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  email TEXT UNIQUE NOT NULL,
+  password_hash TEXT NOT NULL,
+  nickname TEXT NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+```
+
+---
+
+## 14. 확장 아이디어(차후)
+
+* 스크랩/북마크, 컬렉션 공유, 태그 기반 팔로우 피드
+* 저자/출판사 페이지, 유사도 기반 추천
+* 관리자 모드(신고/숨김), 스팸 필터
+
+---
+
+## 15. 제출물 체크리스트
+
+* [ ] 중간 데모 동영상(≤2분)
+* [ ] 최종 슬라이드(아키텍처/시연 GIF)
+* [ ] GitHub README(실행 방법/환경 변수/스크린샷)
+* [ ] 테스트 결과 스크린샷 또는 로그
+* [ ] ERD 이미지(간단)
+
+---
+
+## 16. 오늘의 액션 아이템(10/14)
+
+* [ ] 프론트 스캐폴딩, 라우팅, 헤더/검색 UI
+* [ ] books search 더미 API 연동(mock json로 시작→프록시 전환)
+* [ ] 상세 페이지 골격 + 탭 컴포넌트
+* [ ] 중간 데모용 더미 로그인(로컬스토리지 기반)
