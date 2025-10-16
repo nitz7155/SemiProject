@@ -1,7 +1,20 @@
 import {useState} from 'react'
 import '../App.css'
 
-function ReviewList({review}) {    
+function ContentExpander({content, maxlength=20}) {
+    const [isExpanded, setIsExpanded] = useState(false);
+
+    const expandContent = isExpanded ? content : 
+                        (content.trim().length >= maxlength ? content.slice(0, maxlength)+'...' : content)
+    
+    return (
+            <p className="mt-1 text-gray-800"
+            onClick={()=>setIsExpanded(!isExpanded)}>{expandContent}</p>
+    )
+}
+
+function ReviewList({review}) {   
+    
     return (
         <ul className="mt-4 space-y-2">
           {review.length === 0 && (
@@ -14,7 +27,8 @@ function ReviewList({review}) {
                 <span>{r.name} /</span>
                 <span className="text-sm text-gray-500">방금 전</span>
               </div>
-              <p className="mt-1 text-gray-800">{r.content}</p>
+              {/* <p className="mt-1 text-gray-800">{r.content}</p> */}
+              <ContentExpander content={r.content}/>
             </li>
           ))}
         </ul>

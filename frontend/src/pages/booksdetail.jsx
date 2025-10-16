@@ -8,7 +8,7 @@ function BookDetail(){
     const [flag, setFlag] = useState(false);
 
     return (
-        <main>
+        <main className="container">
             <button className='back-btn' onClick={()=>navigate(-1)}>목록으로</button>
             
             {/* 상세정보 section */}
