@@ -1,7 +1,11 @@
-import {Link, useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
+import {useState} from 'react'
+import Tab from '../components/tab';
+import ReviewForm from '../components/reviewform';
 
 function BookDetail(){
     const navigate = useNavigate()
+    const [flag, setFlag] = useState(false);
 
     return (
         <main>
@@ -12,11 +16,9 @@ function BookDetail(){
             </section>
 
             {/* 탭 */}
-            <div className="tabs" role="tablist" aria-label="상세 탭">
-                <button className='tab' role="tab">리뷰</button>
-                <button className='tab' role="tab">QnA</button>
-            </div>
-
+            <Tab flag={flag} setFlag={setFlag}/>
+            {/* 탭 누르는 결과에 따라 리뷰 또는 QnA로 이동 */}
+            {!flag && <ReviewForm />}
         </main>
     )
 }
