@@ -26,6 +26,12 @@ const QnaList = ({ qnaList, setQnaList }) => {
 
     const handleFormSubmit = (e, id) => {
         e.preventDefault();
+
+        if (!answerer) {
+            return alert('이름을 입력하세요')
+        } else if (!comment) {
+            return alert('댓글 내용을 입력하세요')
+        }
         toggleActiveId(id);
 
         const year = new Date().getFullYear();

@@ -23,6 +23,12 @@ const QnaForm = () => {
     const handleFormSubmit = (e) => {
         e.preventDefault();
 
+        if (!asker) {
+            return alert('이름을 입력하세요')
+        } else if (!content) {
+            return alert('내용을 입력하세요')
+        }
+
         const year = new Date().getFullYear();
         const month = String(new Date().getMonth() + 1).padStart(2, "0");
         const date = String(new Date().getDate()).padStart(2, "0");
@@ -36,7 +42,7 @@ const QnaForm = () => {
 
         setIncrement((prev) => prev + 1);
         setAsker('');
-        setContent('');
+g        setContent('');
         setQnaList((prev) => [
             ...prev,
             data
@@ -49,12 +55,14 @@ const QnaForm = () => {
             <form onSubmit={handleFormSubmit}>
                 <p>이름</p>
                 <input ref={nameRef}
+                       value={asker}
                        type="text"
                        placeholder="이름을 입력하세요"
                        onChange={(e) => setAsker(e.target.value)}
                        onKeyDown={(e) => handleInputKeyDown(e, nameRef)}/>
                 <p>질문 내용</p>
                 <textarea ref={contentRef}
+                          value={content}
                           rows="5" cols="50"
                           placeholder="궁금한 점을 질문해주세요"
                           onChange={(e) => setContent(e.target.value)}/>
