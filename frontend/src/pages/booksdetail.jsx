@@ -2,6 +2,7 @@ import {useNavigate} from 'react-router-dom'
 import {useState} from 'react'
 import Tab from '../components/tab';
 import ReviewForm from '../components/reviewform';
+import QnaForm from '../components/QnaForm';
 
 function BookDetail(){
     const navigate = useNavigate()
@@ -18,7 +19,7 @@ function BookDetail(){
             {/* 탭 */}
             <Tab flag={flag} setFlag={setFlag}/>
             {/* 탭 누르는 결과에 따라 리뷰 또는 QnA로 이동 */}
-            {!flag && <ReviewForm />}
+            {!flag ? <ReviewForm /> : <QnaForm />}
         </main>
     )
 }
