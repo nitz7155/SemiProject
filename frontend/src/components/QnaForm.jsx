@@ -42,7 +42,7 @@ const QnaForm = () => {
 
         setIncrement((prev) => prev + 1);
         setAsker('');
-g        setContent('');
+        setContent('');
         setQnaList((prev) => [
             ...prev,
             data
