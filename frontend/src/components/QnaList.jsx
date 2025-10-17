@@ -50,7 +50,7 @@ const QnaList = ({ qnaList, setQnaList }) => {
         setComment('');
         setQnaList((prev) => prev.map((qna) =>
             qna.id === id
-            ? { ...qna, comments: [...(qna.comments || []), data] }
+            ? { ...qna, comments: [...qna.comments, data] }
             : qna
         ))
     };
