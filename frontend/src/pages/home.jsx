@@ -1,9 +1,10 @@
 import { useState, useRef, useEffect } from 'react'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import '../App.css'
+import SearchResultList from '../components/SearchResultList';
 
 
-function Home() {
+export default function Home() {
     // 가상데이터
     const MOCK_BOOKS = [
     { isbn13: "9788998139766", title: "리액트를 다루는 기술", authors: "김민준", publisher: "길벗", contents: "리액트 핵심을 다루는 실전 가이드." },
@@ -18,29 +19,123 @@ function Home() {
     { isbn13: "9791186697561", title: "모던 자바스크립트 Deep Dive", authors: "이웅모", publisher: "위키북스", contents: "JS 핵심을 깊게 파는 안내서." }
     ];
 
-    const [text, setText] = useState('')
+    const [ text, setText ] = useState('');
+    const [ results, setResults ] = useState([]);
+    const [ history, setHistory ] = useState(() => {
+        try {
+            const raw = localStorage.getItem('search_history');
+            return raw ? JSON.parse(raw) : [];
+        } catch {
+            return [];
+        }
+    });
+
+    useEffect(() => {
+        try {
+            localStorage.setItem('search_history', JSON.stringify(history));
+        } catch { /* ignore */}
+    }, [history]);
+
+    function handleChange(e) {
+        setText(e.target.value);
+    }
+
+    function handleKeyDown(e) {
+        if (e.key === 'Enter') doSearch();
+    }
+
+    function doSearch() {
+        const q = text.trim().toLowerCase();
+        if (!q) {
+            setResults([]);
+            return;
+        }
+
+        const found = MOCK_BOOKS.filter(book =>
+            book.title.toLowerCase().includes(q) ||
+            book.authors.toLowerCase().includes(q)
+        );
+        setResults(found)
+
+        const entry = {
+            id: Date.now(),
+            query: text,
+            count: found.length,
+            sample: found[0] || null,
+            time: new Date().toISOString()
+        };
+        setHistory(prev => [entry, ...prev].slice(0, 20));
+    }
+
+    function clearHistory() {
+        setHistory([]);
+    }
 
     return (
         <main className="container">
             {/* 검색 창 */}
             <section className="search-area" aria-label="검색">
                 <div className="search-row">
-                    <input className="input" aria-label="도서 검색" value={text} onChange={(e)=>setText(e.target.text)} placeholder='도서 제목 또는 저자 검색'/>
-                    <button >검색</button>
+                    <input
+                        className="input"
+                        aria-label="도서 검색"
+                        value={text}
+                        onKeyDown={handleKeyDown}
+                        onChange={handleChange}
+                        placeholder='도서 제목 또는 저자 검색'
+                    />
+                    <button
+                        onClick={doSearch}
+                    >
+                        검색
+                    </button>
                 </div>
             </section>
-            {/* 검색 결과 페이지 */}
+            {/* 검색 이력 및 버튼 */}
+            <div style={{ marginBottom: 12 }}>
+                <strong>검색 이력</strong>
+                <button
+                    onClick={clearHistory}
+                    style={{ marginLeft: 8 }}
+                >
+                    이력 삭제
+                </button>
+            </div>
             <section className="grid" aria-live="polite">
-                <Link className="card" to={'/books'}>
-                    <div className="title">제목</div>
-                    <div className="meta">
-                        <span>저자</span>
-                        <span className="badge">출판사</span>
-                    </div>
-                </Link>
-            </section>
-        </main>
-    )
-}
+                
+                {/* h == history */}
+                {/* 검색 이력 */}
+                {Array.isArray(history) && history.length > 0 ? (
+                    history.map(h => (
+                        <Link
+                            key={String(h.id || h.query)}
+                            className="card"
+                            to={`/books/${h.id}`}
+                        >
+                            <div className="title">{String(h.query || '')}</div>
+                            <div className="meta">
+                                <span>{h.sample && h.sample.title ? h.sample.title: `${h.count}건`}</span>
+                                {/* <span className="badge">{h.sample ? h.sample.authors: '저자 없음'}</span>
+                                <span className="badge">{h.sample ? h.sample.publisher: '출판사'}</span> */}
+                            </div>
+                        </Link>
+                    ))
+                ) : (
+                    <div className="empty">검색 이력이 없습니다.</div>
+                )}
 
-export default Home
+            </section>
+
+            <hr style={{ width: '100%' }} />
+            
+            <div style={{ margin: 12 }} >
+                <strong>검색결과</strong>
+            </div>
+            
+            <section className="grid" aria-live="polite">
+                <SearchResultList results={results} />
+            </section>
+            
+        </main>
+    );
+}
