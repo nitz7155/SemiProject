@@ -1,0 +1,815 @@
+﻿[
+  {
+    "authors": [
+      "박응용"
+    ],
+    "contents": "개정 2판으로 새롭게 태어났다! 챗GPT를 시작으로 펼쳐진 생성 AI 시대에 맞춰 설명과 예제를 다듬고, 최신 경향과 심화 내용을 보충했다. 또한 이번 개정 2판도 50만 코딩 유튜버인 조코딩과 협업을 통해 유튜브 동영상을 제공해 파이썬을 더 쉽게 공부할 수 있다.  8년 연속 베스트셀러! 위키독스 누적 방문 300만! 독자의 입에서 입으로 전해진 추천과 수많은 대학 및 학원의 교재 채택을 통해 검증은 이미 끝났다. 코딩을 처음 배우는 중고등학생부터 코딩",
+    "datetime": "2023-06-15T00:00:00.000+09:00",
+    "isbn": "1163034738 9791163034735",
+    "price": 22000,
+    "publisher": "이지스퍼블리싱",
+    "sale_price": 19800,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F6361131%3Ftimestamp%3D20250709143830",
+    "title": "Do it! 점프 투 파이썬",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=6361131&q=Do+it%21+%EC%A0%90%ED%94%84+%ED%88%AC+%ED%8C%8C%EC%9D%B4%EC%8D%AC"
+  },
+  {
+    "authors": [
+      "윤인성"
+    ],
+    "contents": "『혼자 공부하는 파이썬』이 더욱 흥미있고 알찬 내용으로 개정되었습니다. 프로그래밍이 정말 처음인 입문자도 따라갈 수 있는 친절한 설명과 단계별 학습은 그대로! 혼자 공부하더라도 체계적으로 계획을 세워 학습할 수 있도록 ‘혼공 계획표’를 새롭게 추가했습니다. 또한 입문자가 자주 물어보는 질문과 오류 해결 방법을 적재적소에 배치하여 예상치 못한 문제에 부딪혀도 좌절하지 않고 끝까지 완독할 수 있도록 도와줍니다. 단순한 문법 암기와 코딩 따라하기에 지쳤다면, 새로운",
+    "datetime": "2022-06-01T00:00:00.000+09:00",
+    "isbn": "1162245654 9791162245651",
+    "price": 22000,
+    "publisher": "한빛미디어",
+    "sale_price": 19800,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F6080832%3Ftimestamp%3D20250716142621",
+    "title": "혼자 공부하는 파이썬",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=6080832&q=%ED%98%BC%EC%9E%90+%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94+%ED%8C%8C%EC%9D%B4%EC%8D%AC"
+  },
+  {
+    "authors": [
+      "나도코딩"
+    ],
+    "contents": "유튜브와 인프런 최고의 인기 강의를 한 권에 담았습니다. 일상 속 재미있는 예제로 파이썬 기본 개념을 배우고 1분 퀴즈, 실습 문제, 셀프체크로 이어지는 단계별 학습으로 파이썬을 완공할 수 있습니다. 이제 코딩은 선택이 아닌 필수! 코딩은 전공자만 배울 수 있다는 생각으로 지레 포기하지 마세요. 파이썬은 초보자가 가장 쉽게 배울 수 있는 프로그래밍 언어입니다. 관심만 있다면 누구나 코딩을 배울 수 있습니다. 나도코딩이 쉽고 재미있게 알려드립니다. 코딩",
+    "datetime": "2023-02-20T00:00:00.000+09:00",
+    "isbn": "1140703307 9791140703302",
+    "price": 24000,
+    "publisher": "길벗",
+    "sale_price": 21600,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F6282674%3Ftimestamp%3D20250903141558",
+    "title": "코딩 자율학습 나도코딩의 파이썬 입문",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=6282674&q=%EC%BD%94%EB%94%A9+%EC%9E%90%EC%9C%A8%ED%95%99%EC%8A%B5+%EB%82%98%EB%8F%84%EC%BD%94%EB%94%A9%EC%9D%98+%ED%8C%8C%EC%9D%B4%EC%8D%AC+%EC%9E%85%EB%AC%B8"
+  },
+  {
+    "authors": [
+      "설근민"
+    ],
+    "contents": "프로그램이 뚝딱 만들어진다. 중요한 것은 프로그래밍 언어를 아는 것이 아니라, 문제 해결 방식을 떠올리는 것이다. 어떤 데이터를 어떻게 수집하고, 어떤 모듈로 예측 모델을 만들고, 어떤 조건으로 종목 추천을 받을지 생각했다면, 챗GPT를 이용해 자동매매 시스템으로 조합하는 것은 더 이상 어렵지 않다. 증권사 트레이더에게 챗GPT를 활용하는 방식을 배우고, 초보자도 이해하기 쉬운 파이썬으로 직접 프로그램을 만들면서 자연스럽게 코딩 지식과 금융 지식을 익혀보자",
+    "datetime": "2023-11-17T00:00:00.000+09:00",
+    "isbn": "1192987039 9791192987033",
+    "price": 20000,
+    "publisher": "제이펍",
+    "sale_price": 18000,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F6480329%3Ftimestamp%3D20250919142445",
+    "title": "챗GPT로 만드는 주식 & 암호화폐 자동매매 시스템",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=6480329&q=%EC%B1%97GPT%EB%A1%9C+%EB%A7%8C%EB%93%9C%EB%8A%94+%EC%A3%BC%EC%8B%9D+%26+%EC%95%94%ED%98%B8%ED%99%94%ED%8F%90+%EC%9E%90%EB%8F%99%EB%A7%A4%EB%A7%A4+%EC%8B%9C%EC%8A%A4%ED%85%9C"
+  },
+  {
+    "authors": [
+      "박응용"
+    ],
+    "contents": "문과생도 중고등학생도 직장인도 프로그래밍에 눈뜨게 만든 바로 그 책이 전면 개정판으로 새로 태어났다! 2016년 《Do it! 점프 투 파이썬》으로 출간되었던 이 책은 약 4년 동안의 피드백을 반영하여 초보자가 더 빠르게 입문하고, 더 깊이 있게 공부할 수 있도록 개정되었다. 특히 ‘나 혼자 코딩’과 ‘코딩 면허 시험 20제’ 등 독자의 학습 흐름에 맞게 문제를 보강한 점이 눈에 띈다. 실습량도 두 배로 늘었다.  4년 동안 압도적 1위! 위키독스",
+    "datetime": "2019-06-20T00:00:00.000+09:00",
+    "isbn": "1163030910 9791163030911",
+    "price": 18800,
+    "publisher": "이지스퍼블리싱",
+    "sale_price": 16920,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F4977247%3Ftimestamp%3D20250723122525",
+    "title": "Do it! 점프 투 파이썬",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=4977247&q=Do+it%21+%EC%A0%90%ED%94%84+%ED%88%AC+%ED%8C%8C%EC%9D%B4%EC%8D%AC"
+  },
+  {
+    "authors": [
+      "Y. Daniel Liang"
+    ],
+    "contents": "이 책은 누구나 쉽게 따라할 수 있는 파이썬 프로그래밍 언어에 기반하고 있기 때문에 프로그래밍을 통해 얻을 수 있는 논리 능력 향상과 문제 해결력 배양에 가장 적합하다.  비전공자도 쉽게 이해하고 활용할 수 있는 풍부한 예제를 제공하여 프로그래밍의 기본 개념 정립에 도움을 주며 실생활과 밀접하게 관련된 다양한 사례 연구를 통해 실생활의 문제 해결 능력을 자연스럽게 배양시킨다.   이 책을 활용한 프로그래밍 학습을 통해 파이썬 프로그램을 스스로 작성하고",
+    "datetime": "2018-03-02T00:00:00.000+09:00",
+    "isbn": "8920028893 9788920028892",
+    "price": 35000,
+    "publisher": "에피스테메",
+    "sale_price": 31500,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F397140%3Ftimestamp%3D20230513135958",
+    "title": "파이썬",
+    "translators": [
+      "길준민"
+    ],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=397140&q=%ED%8C%8C%EC%9D%B4%EC%8D%AC"
+  },
+  {
+    "authors": [
+      "박응용"
+    ],
+    "contents": "《Do it! 점프 투 파이썬》은 지난 10년간 온라인 독자들의 질문 댓글에 답변하며 쌓아온 저자만의 노하우를 초보자들이 이해하기 쉽게 풀어냈다. 책은 파이썬의 문법들을 실생활에서 쉽게 접할 수 있는 일들을 사례로 들어 설명하는 저자의 탁월함이 돋보인다. 더불어 최신 파이썬 3버전을 기준으로 내용을 설명하고, 반드시 기억해야 하는 파이썬 2.7버전 내용까지 책 곳곳에서 수록하였다. 또한, 책에서 제공하는 ‘초보자 30일 코스’ 계획표를 이용해 하루 한",
+    "datetime": "2016-03-03T00:00:00.000+09:00",
+    "isbn": "8997390910 9788997390915",
+    "price": 18800,
+    "publisher": "이지스퍼블리싱",
+    "sale_price": 16920,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F1481287%3Ftimestamp%3D20220531214654",
+    "title": "Do it! 점프 투 파이썬",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=1481287&q=Do+it%21+%EC%A0%90%ED%94%84+%ED%88%AC+%ED%8C%8C%EC%9D%B4%EC%8D%AC"
+  },
+  {
+    "authors": [
+      "이강성"
+    ],
+    "contents": "",
+    "datetime": "2005-08-29T00:00:00.000+09:00",
+    "isbn": "8989345774 9788989345770",
+    "price": 35000,
+    "publisher": "프리렉",
+    "sale_price": -1,
+    "status": "",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F1297411%3Ftimestamp%3D20221025165925",
+    "title": "파이썬(열혈강의)(개정판 VER.2)",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=1297411&q=%ED%8C%8C%EC%9D%B4%EC%8D%AC%28%EC%97%B4%ED%98%88%EA%B0%95%EC%9D%98%29%28%EA%B0%9C%EC%A0%95%ED%8C%90+VER.2%29"
+  },
+  {
+    "authors": [
+      "윤인성"
+    ],
+    "contents": "이 책은 독학으로 프로그래밍 언어를 처음 배우려는 입문자가, 혹은 파이썬을 배우려는 입문자가 ‘꼭 필요한 내용을 제대로’ 학습할 수 있도록 구성했다. ‘무엇을’, ‘어떻게’ 학습해야 할지조차 모르는 입문자의 막연한 마음을 살펴, 과외 선생님이 알려주듯 친절하게, 그러나 핵심적인 내용만 콕콕 집어준다. 책의 첫 페이지를 펼쳐서 마지막 페이지를 덮을 때까지, 혼자서도 충분히 파이썬을 배울 수 있다는 자신감과 확신이 계속될 것이다!    27명의 베타리더",
+    "datetime": "2019-06-10T00:00:00.000+09:00",
+    "isbn": "1162241888 9791162241882",
+    "price": 18000,
+    "publisher": "한빛미디어",
+    "sale_price": 16200,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F4966863%3Ftimestamp%3D20230217202814",
+    "title": "혼자 공부하는 파이썬",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=4966863&q=%ED%98%BC%EC%9E%90+%EA%B3%B5%EB%B6%80%ED%95%98%EB%8A%94+%ED%8C%8C%EC%9D%B4%EC%8D%AC"
+  },
+  {
+    "authors": [
+      "한선관",
+      "김태령"
+    ],
+    "contents": "이 책은 지금까지 경험하지 못한 코딩 교육의 진수를 보여준다. “코딩 교육이 가야 할 방향은 컴퓨팅 사고력을 높이는 것이다.”라고 이 책의 저자들이 말하듯, “디지털 시대에 적합한 창의력과 문제해결력을 기르기 위한 코딩의 기초부터 응용까지 컴퓨터 코드를 작성하는 것은 물론이고, 알고리즘 학습을 통한 컴퓨팅 사고력을 완전 정복한다.",
+    "datetime": "2019-02-28T00:00:00.000+09:00",
+    "isbn": "8970509720 9788970509723",
+    "price": 29000,
+    "publisher": "생능출판",
+    "sale_price": 26100,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F4888715%3Ftimestamp%3D20240330130853",
+    "title": "파이썬",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=4888715&q=%ED%8C%8C%EC%9D%B4%EC%8D%AC"
+  },
+  {
+    "authors": [
+      "김기수"
+    ],
+    "contents": "이 책은 코딩 초보자가 문법을 빠르고 재밌게 배울 수 있도록 실무에서 주로 사용하는 내용을 쏙쏙 골라 다양한 예제와 함께 다룹니다. 개발 환경 설정부터 HTML, CSS, 자바스크립트 기초까지 한 권에 담았고, 마지막에는 실무에서 유용하게 활용할 수 있는 나만의 포트폴리오 페이지를 만들어 배운 내용을 완성합니다. 단순한 코딩 및 결과 확인식 설명에서 벗어나 원리를 이해하며 학습할 수 있어서 외우지 않아도 자연스럽게 이해되며, 베타 학습단과 함께 내용",
+    "datetime": "2022-04-25T00:00:00.000+09:00",
+    "isbn": "1165219468 9791165219468",
+    "price": 27000,
+    "publisher": "길벗",
+    "sale_price": 24300,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F6052846%3Ftimestamp%3D20250716142640",
+    "title": "코딩 자율학습 HTML + CSS + 자바스크립트",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=6052846&q=%EC%BD%94%EB%94%A9+%EC%9E%90%EC%9C%A8%ED%95%99%EC%8A%B5+HTML+%2B+CSS+%2B+%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8"
+  },
+  {
+    "authors": [
+      "고현민"
+    ],
+    "contents": "★ 진짜 초보자도 자신 있게 끝낼 수 있도록 투머치 설명러 얄코가 다 알려 주는 웹 개발 가이드  명쾌한 설명과 전달력 높은 강의로 입문자들의 찬사를 받고 있는 얄코(얄팍한코딩사전)의 「제대로 파는 HTML+CSS」와 「뉴비를 위한 자바스크립트」 온라인 강의를 한 권의 책으로 담아냈습니다. 코딩이 처음인 사람도 어렵지 않게 프로그래밍과 웹 개발에 접근할 수 있도록 최대한 친절하고 쉬운 비유로 설명합니다. 한두 줄로 끝날 수 있는 기능 설명을 수많은 경우의",
+    "datetime": "2024-02-01T00:00:00.000+09:00",
+    "isbn": "1198364254 9791198364258",
+    "price": 32000,
+    "publisher": "리코멘드",
+    "sale_price": 28800,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F6545560%3Ftimestamp%3D20250502152617",
+    "title": "얄코의 Too Much 친절한 HTML+CSS+자바스크립트",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=6545560&q=%EC%96%84%EC%BD%94%EC%9D%98+Too+Much+%EC%B9%9C%EC%A0%88%ED%95%9C+HTML%2BCSS%2B%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8"
+  },
+  {
+    "authors": [
+      "박세홍(홍팍)"
+    ],
+    "contents": "부트를 처음 접하는 입문자와 이미 공부했지만 부족하다고 느끼는 분들을 위한 책입니다. 게시판을 만들며 클라이언트와 서버가 데이터를 주고받을 때 적용되는 핵심 개념 3가지, MVC 패턴, JPA, REST API를 배우고 그 과정에서 자바 백엔드 개발의 전반을 이해할 수 있습니다. 책을 마치고 나면 자신만의 프로젝트를 만들 수 있고, 스프링 심화 학습을 따라갈 수 있는 수준이 됩니다. 단계별로 진행되는 실습을 따라 하다 보면 자연스럽게 필수 개념과 용어를",
+    "datetime": "2023-07-10T00:00:00.000+09:00",
+    "isbn": "1140705075 9791140705078",
+    "price": 33000,
+    "publisher": "길벗",
+    "sale_price": 29700,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F6381817%3Ftimestamp%3D20250926141143",
+    "title": "코딩 자율학습 스프링 부트 3 자바 백엔드 개발 입문",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=6381817&q=%EC%BD%94%EB%94%A9+%EC%9E%90%EC%9C%A8%ED%95%99%EC%8A%B5+%EC%8A%A4%ED%94%84%EB%A7%81+%EB%B6%80%ED%8A%B8+3+%EC%9E%90%EB%B0%94+%EB%B0%B1%EC%97%94%EB%93%9C+%EA%B0%9C%EB%B0%9C+%EC%9E%85%EB%AC%B8"
+  },
+  {
+    "authors": [
+      "이웅모"
+    ],
+    "contents": "웹페이지의 단순한 보조 기능을 처리하기 위한 제한적인 용도로 태어난 자바스크립트는 과도하다고 느껴질 만큼 친절한 프로그래밍 언어입니다. 이러한 자바스크립트의 특징은 편리한 경우도 있지만 내부 동작을 이해하기 어렵게 만들기도 합니다.    하지만 자바스크립트는 더 이상 제한적인 용도의 프로그래밍 언어가 아닙니다. 오랜 변화를 거쳐 이제 자바스크립트는 프런트엔드와 백엔드 영역의 프로그래밍 언어로 사용할 수 있는 명실상부한 범용 애플리케이션 개발 언어로",
+    "datetime": "2020-09-25T00:00:00.000+09:00",
+    "isbn": "1158392230 9791158392239",
+    "price": 45000,
+    "publisher": "위키북스",
+    "sale_price": 40500,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F5477653%3Ftimestamp%3D20250709135354",
+    "title": "모던 자바스크립트 Deep Dive",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=5477653&q=%EB%AA%A8%EB%8D%98+%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8+Deep+Dive"
+  },
+  {
+    "authors": [
+      "신선영"
+    ],
+    "contents": "★ 자바 백엔드 개발자가 되고 싶다면 ★ 자바 언어 입문 그다음에 꼭 보세요실력을 갖춘 개발자로 성장하려면 시작이 중요합니다. 그래서 이 책은 무엇부터 익혀야 하는지 막막한 입문자에게 백엔드 개발의 필수 지식을 학습 로드맵 중심으로 설명합니다. 이어서 스프링 부트 3 개발에 꼭 필요한 4대장인 JPA ORM, OAuth2 인증, AWS 배포, CI/CD를 최신 트렌드에 맞게 그리고 실무에 유용하게 알려줍니다. 모든 장 끝에는 연습문제가 수록되어 있어 배운",
+    "datetime": "2023-05-12T00:00:00.000+09:00",
+    "isbn": "1191905292 9791191905298",
+    "price": 30000,
+    "publisher": "골든래빗(주)",
+    "sale_price": 27000,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F6339863%3Ftimestamp%3D20250812144245",
+    "title": "스프링 부트 3 백엔드 개발자 되기: 자바 편",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=6339863&q=%EC%8A%A4%ED%94%84%EB%A7%81+%EB%B6%80%ED%8A%B8+3+%EB%B0%B1%EC%97%94%EB%93%9C+%EA%B0%9C%EB%B0%9C%EC%9E%90+%EB%90%98%EA%B8%B0%3A+%EC%9E%90%EB%B0%94+%ED%8E%B8"
+  },
+  {
+    "authors": [
+      "고경희"
+    ],
+    "contents": "웹의 기본을 한 권으로 끝낼 수 있는 책이 탄생했다! 8년 연속 웹 분야 도서 1위인 《Do it! HTML5+CSS3 웹 표준의 정석》의 고경희 저자는 ‘HTML, CSS, 자바스크립트를 한 권으로’ 배우고 싶다는 많은 독자의 요구를 모아 최신 경향을 반영한 이 책을 집필했다. 웹 개발을 시작하는 입문자도 쉽게 실습할 수 있고, 중요한 문법만 다시 공부하고 싶은 중ㆍ고급자에게도 도움이 된다.  친절한 설명은 기본! 핵심만 쏙쏙 뽑아서 실무에 바로 사용",
+    "datetime": "2021-01-22T00:00:00.000+09:00",
+    "isbn": "1163032212 9791163032212",
+    "price": 30000,
+    "publisher": "이지스퍼블리싱",
+    "sale_price": 27000,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F5563301%3Ftimestamp%3D20240725152628",
+    "title": "Do it! HTML+CSS+자바스크립트 웹 표준의 정석",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=5563301&q=Do+it%21+HTML%2BCSS%2B%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8+%EC%9B%B9+%ED%91%9C%EC%A4%80%EC%9D%98+%EC%A0%95%EC%84%9D"
+  },
+  {
+    "authors": [
+      "더글라스 크락포드"
+    ],
+    "contents": "야후의 선임 자바스크립트 아키텍트 더글라스 크락포드의 『자바스크립트 핵심 가이드』. 자바스크립트를 우연히 접했거나 호기심이 생겨 탐험하고 싶어하는 프로그래머를 위해 저술된 것이다.  이 책은 놀라울 정도로 강력한 언어인 자바스크립트에 대한 핵심적인 안내서다. 자바스크립트가 제공하는 여러 가지 기능을 보여준 다음, 그것을 조합하여 사용하는 방법을 찾을 수 있도록 인도한다.  자바스크립트를 우수한 객체지향 언어로 만들 수 있는 장점에 대해서도 다루는 것",
+    "datetime": "2008-09-30T00:00:00.000+09:00",
+    "isbn": "8979145985 9788979145984",
+    "price": 22000,
+    "publisher": "한빛미디어",
+    "sale_price": 19800,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F1103216%3Ftimestamp%3D20221011091039",
+    "title": "자바스크립트 핵심 가이드(더글라스 크락포드의)",
+    "translators": [
+      "김명신"
+    ],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=1103216&q=%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8+%ED%95%B5%EC%8B%AC+%EA%B0%80%EC%9D%B4%EB%93%9C%28%EB%8D%94%EA%B8%80%EB%9D%BC%EC%8A%A4+%ED%81%AC%EB%9D%BD%ED%8F%AC%EB%93%9C%EC%9D%98%29"
+  },
+  {
+    "authors": [
+      "김병부"
+    ],
+    "contents": "『자바를 다루는 기술』은 자바 언어의 기초 문법을 친절하고 자세하게 설명한다. 객체 지향 프로그래밍 개념은 물론, 자바의 자료구조, 제네릭(generics), 리플렉션(reflection) 등 고급 응용 기법들을 다양한 예제를 통해 익힐 수 있도록 구성하였다. 또한 저자의 실무 경험 속에서 얻은 노하우와 팁들을 제시하고, 오픈 소스 라이브러리 응용법 등을 통해 실무 적응력을 높여 독자들이 다양한 개발 현장에서 자바 프로젝트를 어려움 없이 수행할 수 있도록",
+    "datetime": "2014-02-24T00:00:00.000+09:00",
+    "isbn": "8966185525 9788966185528",
+    "price": 29000,
+    "publisher": "길벗",
+    "sale_price": 26100,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F923727%3Ftimestamp%3D20220103152724",
+    "title": "자바를 다루는 기술",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=923727&q=%EC%9E%90%EB%B0%94%EB%A5%BC+%EB%8B%A4%EB%A3%A8%EB%8A%94+%EA%B8%B0%EC%88%A0"
+  },
+  {
+    "authors": [
+      "신용권"
+    ],
+    "contents": "『이것이 자바다』은 15년 이상 자바 언어를 교육해온 자바 전문강사의 노하우를 아낌 없이 담아낸 자바 입문서이다. 자바 입문자를 배려한 친절한 설명과 배려로 1장에 풀인원 설치 방법을 제공하여 쉽게 학습환경을 구축할 수 있다. 또한 중급 개발자로 나아가기 위한 람다식(14장), JavaFX(17장), NIO(18~19장) 수록되어 있으며 각 챕터마다 확인문제 제공. 풀이와 답은 인터넷 강의에서 친절한 해설을 통해 알려준다.",
+    "datetime": "2015-01-05T00:00:00.000+09:00",
+    "isbn": "8968481474 9788968481475",
+    "price": 30000,
+    "publisher": "한빛미디어",
+    "sale_price": 27000,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F945967%3Ftimestamp%3D20241211113455",
+    "title": "이것이 자바다",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=945967&q=%EC%9D%B4%EA%B2%83%EC%9D%B4+%EC%9E%90%EB%B0%94%EB%8B%A4"
+  },
+  {
+    "authors": [
+      "모리 요시나오"
+    ],
+    "contents": "▶ 이 책은 JAVA를 다룬 이론서입니다. JAVA의 기초적이고 전반적인 내용을 학습할 수 있습니다.",
+    "datetime": "2019-01-09T00:00:00.000+09:00",
+    "isbn": "8931555695 9788931555691",
+    "price": 17000,
+    "publisher": "성안당",
+    "sale_price": 15300,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F4854277%3Ftimestamp%3D20240420131734",
+    "title": "자바(Java) 1학년",
+    "translators": [
+      "김성훈"
+    ],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=4854277&q=%EC%9E%90%EB%B0%94%28Java%29+1%ED%95%99%EB%85%84"
+  },
+  {
+    "authors": [
+      "빌 루바노빅"
+    ],
+    "contents": "FastAPI는 깔끔한 디자인으로 최신 파이썬 기능을 활용하는 견고한 웹 프레임워크로 플라스크나 장고와 유사한 구조를 갖춰 쉽게 시작할 수 있습니다. 이 책은 파이썬에 익숙한 개발자가 적은 코드로 짧은 시간에 많은 작업을 수행하는 방법을 소개합니다. 폼, 데이터베이스, 그래픽, 지도 등 다양한 주제를 예시로 들어 FastAPI 개발의 기본을 뛰어넘는 핵심을 다룹니다. 또한 RESTful API, 데이터 유효성 검사, 권한 부여 등 여러 주제를 쉽고 빠르게",
+    "datetime": "2024-06-30T00:00:00.000+09:00",
+    "isbn": "1169212646 9791169212649",
+    "price": 26000,
+    "publisher": "한빛미디어",
+    "sale_price": 23400,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F6669254%3Ftimestamp%3D20250906141908",
+    "title": "처음 시작하는 FastAPI",
+    "translators": [
+      "한용재"
+    ],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=6669254&q=%EC%B2%98%EC%9D%8C+%EC%8B%9C%EC%9E%91%ED%95%98%EB%8A%94+FastAPI"
+  },
+  {
+    "authors": [
+      "온개발팀"
+    ],
+    "contents": "환경에서 효율적이고 강력한 웹 API를 만드는 것은 스타트업과 기존 기업 모두에게 매우 중요합니다. Python 개발자는 Python 3.7+로 API를 구축하기 위한 현대적이고 빠른고성능 웹 프레임워크이자 배우기 쉽고 사용하기 쉬운 FastAPI에 액세스할 수 있는 행운을 누리고 있습니다. 이 책은 FastAPI의 잠재력을 최대한 활용할 수 있도록 설계된 종합 가이드입니다.  1장, 'FastAPI 소개'에서는 이 놀라운 웹 프레임워크를 소개하는 것으로 시작",
+    "datetime": "2024-01-26T00:00:00.000+09:00",
+    "isbn": " 9791171270842",
+    "price": 12000,
+    "publisher": "온노트",
+    "sale_price": -1,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F6550373%3Ftimestamp%3D20241018162516",
+    "title": "FastAPI",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=6550373&q=FastAPI"
+  },
+  {
+    "authors": [
+      "빌 루바노빅"
+    ],
+    "contents": "With this practical book, developers familiar with Python will learn how FastAPI lets you accomplish more in less time with less code. Author Bill Lubanovic covers the nuts and bolts of FastAPI development with how-to guides on various topics such as forms",
+    "datetime": "2024-01-02T00:00:00.000+09:00",
+    "isbn": "1098135504 9781098135508",
+    "price": 77730,
+    "publisher": "O'Reilly Media",
+    "sale_price": 75400,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F6529106%3Ftimestamp%3D20250716143800",
+    "title": "Fastapi",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=6529106&q=Fastapi"
+  },
+  {
+    "authors": [
+      "한용재"
+    ],
+    "contents": "파이썬 기반의 FastAPI는 플라스크보다 API 생성이 쉽고, 장고보다 가볍다. 이 책은 FastAPI를 활용해 백엔드 소프트웨어를 클린 아키텍처로 작성하는 법을 안내한다. 클린 아키텍처는 계층이 많아짐에 따라 코드의 양 또한 늘어나지만, 계층을 나누기 편한 FastAPI는 클린 아키텍처를 적용하기에 적합한 웹 프레임워크다. TIL 앱을 만들기 위해 먼저 FastAPI와 클린 아키텍처의 개념과 기능을 알아본 후 회원 가입, DI 도입, CRUD 기능",
+    "datetime": "2024-10-25T00:00:00.000+09:00",
+    "isbn": "1193926521 9791193926529",
+    "price": 25000,
+    "publisher": "제이펍",
+    "sale_price": 22500,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F6737536%3Ftimestamp%3D20250817123952",
+    "title": "FastAPI로 배우는 백엔드 프로그래밍 with 클린 아키텍처",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=6737536&q=FastAPI%EB%A1%9C+%EB%B0%B0%EC%9A%B0%EB%8A%94+%EB%B0%B1%EC%97%94%EB%93%9C+%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D+with+%ED%81%B4%EB%A6%B0+%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98"
+  },
+  {
+    "authors": [
+      "Dave Lee"
+    ],
+    "contents": "따라서 세계적으로 인기를 누린 지는 이미 오래되었고 국내에서의 니즈도 점차 활발해지고 있습니다. 또한 파이썬 자체가 꾸준히 개선되며 생산성과 성능, 두 마리 토끼를 잡을 수 있는 기술로 대두되고 있습니다. 플라스크(Flask), FastAPI와 함께라면 이전보다 빠르고, 가볍고, 세련된 웹과 풀스택을 기대해도 좋습니다. 이 책을 통해 방대한 예시와 실전에서 바로 활용할 수 있는 프로젝트를 직접 경험해보고, 배우기 쉽고 현대적인 웹에 적합한 파이썬 기반 웹",
+    "datetime": "2024-05-21T00:00:00.000+09:00",
+    "isbn": "1165922789 9791165922788",
+    "price": 33000,
+    "publisher": "비제이퍼블릭",
+    "sale_price": 29700,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F6631023%3Ftimestamp%3D20250308151718",
+    "title": "가장 빠른 풀스택을 위한 Flask & FastAPI",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=6631023&q=%EA%B0%80%EC%9E%A5+%EB%B9%A0%EB%A5%B8+%ED%92%80%EC%8A%A4%ED%83%9D%EC%9D%84+%EC%9C%84%ED%95%9C+Flask+%26+FastAPI"
+  },
+  {
+    "authors": [
+      "박응용"
+    ],
+    "contents": "\"점프 투 FastAPI\"는 \"파이보\"라는 이름의 파이썬 게시판Python Board 서비스를 만들어가는 과정을 설명한 FastAPI 입문서이다. 파이썬 설치부터 시작하여 서비스 운영까지 웹 프로그래밍의 처음부터 끝까지 모든 것을 알 수 있도록 구성하였다.",
+    "datetime": "2025-09-23T00:00:00.000+09:00",
+    "isbn": " 9791198111302",
+    "price": 7000,
+    "publisher": "위키독스",
+    "sale_price": -1,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F7033484%3Ftimestamp%3D20251015143651",
+    "title": "점프 투 FastAPI",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=7033484&q=%EC%A0%90%ED%94%84+%ED%88%AC+FastAPI"
+  },
+  {
+    "authors": [
+      "압둘라지즈 압둘라지즈 아데시나"
+    ],
+    "contents": "이 책의 강점은 ‘이벤트 플래너 애플리케이션 완성’이라는 목표를 가지고 라우팅부터 데이터베이스 연결, 인증, 테스트, 배포까지 FastAPI의 핵심 기능을 단계별로 적용해본다는 점입니다. 또한 쉽게 실습을 진행할 수 있도록 윈도우와 리눅스 명령어를 각각 제공합니다.  실습 코드는 간결하고 명확합니다. 플라스크, 장고 같은 웹 프레임워크보다 배우기 쉬운 FastAPI의 장점이 잘 반영되어 있기 때문이죠. 반대로 핵심 기능과 코드에 관한 설명은 FastAPI 공식",
+    "datetime": "2023-03-22T00:00:00.000+09:00",
+    "isbn": "1169210872 9791169210874",
+    "price": 20000,
+    "publisher": "한빛미디어",
+    "sale_price": 18000,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F6301625%3Ftimestamp%3D20250928120214",
+    "title": "FastAPI를 사용한 파이썬 웹 개발",
+    "translators": [
+      "김완섭"
+    ],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=6301625&q=FastAPI%EB%A5%BC+%EC%82%AC%EC%9A%A9%ED%95%9C+%ED%8C%8C%EC%9D%B4%EC%8D%AC+%EC%9B%B9+%EA%B0%9C%EB%B0%9C"
+  },
+  {
+    "authors": [
+      "나카무라 쇼"
+    ],
+    "contents": "이 책의 특징 ㆍFastAPI를 처음 이용한다면 필독! ㆍ실무와 같은 샘플을 통해 단계별 학습이 가능하다. ㆍ개발 환경 준비에서 실제 앱의 구현, 그리고 앱 배포까지의 실무 과정을 그대로 적용.",
+    "datetime": "2024-03-15T00:00:00.000+09:00",
+    "isbn": "1127473131 9791127473136",
+    "price": 35200,
+    "publisher": "에이케이커뮤니케이션즈",
+    "sale_price": 31680,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F6586464%3Ftimestamp%3D20250925141713",
+    "title": "파이썬 FastAPI 개발 입문",
+    "translators": [
+      "박광수"
+    ],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=6586464&q=%ED%8C%8C%EC%9D%B4%EC%8D%AC+FastAPI+%EA%B0%9C%EB%B0%9C+%EC%9E%85%EB%AC%B8"
+  },
+  {
+    "authors": [
+      "온개발팀"
+    ],
+    "contents": "오리지널판이 있는 경우 개정판을 다시 구매할 필요 없이 오리지널판을 업데이트하여 사용할 수 있습니다.  파이썬에서 고성능 API를 구축하기 위한 FastAPI 프레임워크를 마스터하기 위한 종합 가이드인 \"FastAPI\"에 오신 것을 환영합니다. FastAPI는 속도, 효율성, 사용 편의성으로 인해 최신 API 개발을 위한 가장 인기 있는 프레임워크 중 하나로 빠르게 자리 잡았습니다. 이 책은 기본부터 시작하여 고급 개념으로 발전하는 FastAPI의",
+    "datetime": "2024-10-10T00:00:00.000+09:00",
+    "isbn": " 9791171271849",
+    "price": 12000,
+    "publisher": "온노트",
+    "sale_price": -1,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F6744042%3Ftimestamp%3D20241018162503",
+    "title": "FastAPI 개정판",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=6744042&q=FastAPI+%EA%B0%9C%EC%A0%95%ED%8C%90"
+  },
+  {
+    "authors": [
+      "Luca Giunio de",
+      "Ferraro Antonio"
+    ],
+    "contents": "",
+    "datetime": "2024-08-02T00:00:00.000+09:00",
+    "isbn": "1805127853 9781805127857",
+    "price": 39000,
+    "publisher": "Packt Publishing",
+    "sale_price": 39000,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F6754513%3Ftimestamp%3D20241115153625",
+    "title": "FastAPI Cookbook",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=6754513&q=FastAPI+Cookbook"
+  },
+  {
+    "authors": [
+      "Stefanov Stoyan"
+    ],
+    "contents": "",
+    "datetime": "2021-08-10T00:00:00.000+09:00",
+    "isbn": "1492051462 9781492051466",
+    "price": 0,
+    "publisher": "O'Reilly Media",
+    "sale_price": 60450,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F5629864%3Ftimestamp%3D20250717141158",
+    "title": "React",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=5629864&q=React"
+  },
+  {
+    "authors": [
+      "O'Reilly Media"
+    ],
+    "contents": "",
+    "datetime": "2016-08-31T00:00:00.000+09:00",
+    "isbn": "1491931825 9781491931820",
+    "price": 54170,
+    "publisher": "O'Reilly Media",
+    "sale_price": 48360,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F3343875%3Ftimestamp%3D20230718172142",
+    "title": "React",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=3343875&q=React"
+  },
+  {
+    "authors": [
+      "Springer Sebastian"
+    ],
+    "contents": "",
+    "datetime": "2023-04-05T00:00:00.000+09:00",
+    "isbn": "3836292548 9783836292542",
+    "price": 72620,
+    "publisher": "Rheinwerk Verlag GmbH",
+    "sale_price": -1,
+    "status": "",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F6557299%3Ftimestamp%3D20240305164427",
+    "title": "React",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=6557299&q=React"
+  },
+  {
+    "authors": [
+      "Emilio Rodriguez Martinez"
+    ],
+    "contents": "",
+    "datetime": "2018-03-09T00:00:00.000+09:00",
+    "isbn": "1789136083 9781789136081",
+    "price": 60000,
+    "publisher": "Packt Publishing",
+    "sale_price": 48360,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F5213125%3Ftimestamp%3D20240904145312",
+    "title": "React",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=5213125&q=React"
+  },
+  {
+    "authors": [
+      "黑うさP／原作 雨宮ひとみ／著"
+    ],
+    "contents": "",
+    "datetime": "2014-11-27T00:00:00.000+09:00",
+    "isbn": "4569820573 9784569820576",
+    "price": 14340,
+    "publisher": "PHP硏究所",
+    "sale_price": 14950,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F3309167%3Ftimestamp%3D20190219115500",
+    "title": "REACT",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=3309167&q=REACT"
+  },
+  {
+    "authors": [
+      "이정열"
+    ],
+    "contents": "리액트를 시작하기 전에 개발 환경을 준비하는 과정부터 시작하여 예제 파일을 실행하는 방법을 안내한다. 입문부터 초급, 중급, 활용, 실무까지 5개의 파트로 나누어 단계별로 실력을 향상시킬 수 있게 구성하였다. 리액트에서 사용하는 함수와 문법, 웹 브라우저에 화면을 띄워보기로 시작되는 이 책은 변수를 관리하고 컴포넌트 유형별로 장단점을 비교하고, 태그 사용 및 이벤트 처리 구현도 할 수 있다. 또한 외부 api를 활용하는 부분도 집중적으로 다루고",
+    "datetime": "2021-02-05T00:00:00.000+09:00",
+    "isbn": "8956749019 9788956749013",
+    "price": 25000,
+    "publisher": "정보문화사",
+    "sale_price": 22500,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F5584332%3Ftimestamp%3D20240814155516",
+    "title": "초보자를 위한 리액트(React) 200제",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=5584332&q=%EC%B4%88%EB%B3%B4%EC%9E%90%EB%A5%BC+%EC%9C%84%ED%95%9C+%EB%A6%AC%EC%95%A1%ED%8A%B8%28React%29+200%EC%A0%9C"
+  },
+  {
+    "authors": [
+      "Eisenman Bonnie"
+    ],
+    "contents": "Get a practical introduction to React Native, the JavaScript framework for writing and deploying fully featured mobile apps that look and feel native. With this hands-on guide, you’ll learn how to build applications that target iOS, Android, and other mobile",
+    "datetime": "2017-11-12T00:00:00.000+09:00",
+    "isbn": "1491989149 9781491989142",
+    "price": 69000,
+    "publisher": "O'Reilly Media",
+    "sale_price": 55000,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F3183503%3Ftimestamp%3D20190218073307",
+    "title": "Learning React Native",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=3183503&q=Learning+React+Native"
+  },
+  {
+    "authors": [
+      "아르테미 페도세예프"
+    ],
+    "contents": "개발자들이 활용하도록 하고 있다. 그리고 많은 유명 기업들이 다양한 페이스북 오픈소스 기술을 도입해 페이스북의 기대에 부응하고 있다. 스트리밍 서비스의 대표주자로 손꼽히는 넷플렉스(Netflix)를 비롯해 BBC와 NBC의 웹사이트가 React.js를 사용한다. React.js는 매우 직관적이고 효율적인 UI를 구성할 수 있도록 방안을 제시해 줄 것이다. 이 책은 React.js의 설치부터 시작해 간단한 컴포넌트에서 다소 복잡한 컴포넌트까지 함께 만들어 보면서 기본",
+    "datetime": "2016-05-20T00:00:00.000+09:00",
+    "isbn": "8960778605 9788960778603",
+    "price": 20000,
+    "publisher": "에이콘출판",
+    "sale_price": 18000,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F838198%3Ftimestamp%3D20240824113704",
+    "title": "React.js 핵심정리",
+    "translators": [
+      "테크 트랜스 그룹 T4"
+    ],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=838198&q=React.js+%ED%95%B5%EC%8B%AC%EC%A0%95%EB%A6%AC"
+  },
+  {
+    "authors": [
+      "Banks Alex"
+    ],
+    "contents": "",
+    "datetime": "2017-08-17T00:00:00.000+09:00",
+    "isbn": "1491954620 9781491954621",
+    "price": 68320,
+    "publisher": "O'Reilly Media",
+    "sale_price": 56070,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F3525836%3Ftimestamp%3D20230919014204",
+    "title": "Learning React",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=3525836&q=Learning+React"
+  },
+  {
+    "authors": [
+      "Mardan Azat"
+    ],
+    "contents": "",
+    "datetime": "2017-09-28T00:00:00.000+09:00",
+    "isbn": " 9781617293344",
+    "price": 69590,
+    "publisher": "",
+    "sale_price": 61940,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F5148306",
+    "title": "React Quickly",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=5148306&q=React+Quickly"
+  },
+  {
+    "authors": [
+      "김기수"
+    ],
+    "contents": "이 책은 코딩 초보자가 문법을 빠르고 재밌게 배울 수 있도록 실무에서 주로 사용하는 내용을 쏙쏙 골라 다양한 예제와 함께 다룹니다. 개발 환경 설정부터 HTML, CSS, 자바스크립트 기초까지 한 권에 담았고, 마지막에는 실무에서 유용하게 활용할 수 있는 나만의 포트폴리오 페이지를 만들어 배운 내용을 완성합니다. 단순한 코딩 및 결과 확인식 설명에서 벗어나 원리를 이해하며 학습할 수 있어서 외우지 않아도 자연스럽게 이해되며, 베타 학습단과 함께 내용",
+    "datetime": "2022-04-25T00:00:00.000+09:00",
+    "isbn": "1165219468 9791165219468",
+    "price": 27000,
+    "publisher": "길벗",
+    "sale_price": 24300,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F6052846%3Ftimestamp%3D20250716142640",
+    "title": "코딩 자율학습 HTML + CSS + 자바스크립트",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=6052846&q=%EC%BD%94%EB%94%A9+%EC%9E%90%EC%9C%A8%ED%95%99%EC%8A%B5+HTML+%2B+CSS+%2B+%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8"
+  },
+  {
+    "authors": [
+      "고현민"
+    ],
+    "contents": "★ 진짜 초보자도 자신 있게 끝낼 수 있도록 투머치 설명러 얄코가 다 알려 주는 웹 개발 가이드  명쾌한 설명과 전달력 높은 강의로 입문자들의 찬사를 받고 있는 얄코(얄팍한코딩사전)의 「제대로 파는 HTML+CSS」와 「뉴비를 위한 자바스크립트」 온라인 강의를 한 권의 책으로 담아냈습니다. 코딩이 처음인 사람도 어렵지 않게 프로그래밍과 웹 개발에 접근할 수 있도록 최대한 친절하고 쉬운 비유로 설명합니다. 한두 줄로 끝날 수 있는 기능 설명을 수많은 경우",
+    "datetime": "2024-02-01T00:00:00.000+09:00",
+    "isbn": "1198364254 9791198364258",
+    "price": 32000,
+    "publisher": "리코멘드",
+    "sale_price": 28800,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F6545560%3Ftimestamp%3D20250502152617",
+    "title": "얄코의 Too Much 친절한 HTML+CSS+자바스크립트",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=6545560&q=%EC%96%84%EC%BD%94%EC%9D%98+Too+Much+%EC%B9%9C%EC%A0%88%ED%95%9C+HTML%2BCSS%2B%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8"
+  },
+  {
+    "authors": [
+      "O'Reilly Media"
+    ],
+    "contents": "",
+    "datetime": "2015-09-07T00:00:00.000+09:00",
+    "isbn": "1491918055 9781491918050",
+    "price": 51630,
+    "publisher": "O'Reilly Media",
+    "sale_price": 58980,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F3376873",
+    "title": "CSS",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=3376873&q=CSS"
+  },
+  {
+    "authors": [
+      "고경희"
+    ],
+    "contents": "웹의 기본을 한 권으로 끝낼 수 있는 책이 탄생했다! 8년 연속 웹 분야 도서 1위인 《Do it! HTML5+CSS3 웹 표준의 정석》의 고경희 저자는 ‘HTML, CSS, 자바스크립트를 한 권으로’ 배우고 싶다는 많은 독자의 요구를 모아 최신 경향을 반영한 이 책을 집필했다. 웹 개발을 시작하는 입문자도 쉽게 실습할 수 있고, 중요한 문법만 다시 공부하고 싶은 중ㆍ고급자에게도 도움이 된다.  친절한 설명은 기본! 핵심만 쏙쏙 뽑아서 실무에 바로 사용",
+    "datetime": "2021-01-22T00:00:00.000+09:00",
+    "isbn": "1163032212 9791163032212",
+    "price": 30000,
+    "publisher": "이지스퍼블리싱",
+    "sale_price": 27000,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F5563301%3Ftimestamp%3D20240725152628",
+    "title": "Do it! HTML+CSS+자바스크립트 웹 표준의 정석",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=5563301&q=Do+it%21+HTML%2BCSS%2B%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8+%EC%9B%B9+%ED%91%9C%EC%A4%80%EC%9D%98+%EC%A0%95%EC%84%9D"
+  },
+  {
+    "authors": [
+      "온개발팀"
+    ],
+    "contents": "이 책은 웹 디자인 및 프레젠테이션의 초석인 CSSCascading Style Sheet의 세계로 빠져들게 하는 필수 가이드입니다. 이 책은 CSS에 대한 포괄적인 이해를 돕고 시각적으로 멋지고 반응이 빠른 웹 페이지를 제작할 수 있는 기술을 갖추도록 제작되었습니다.  1장, 'CSS 소개'에서는 최신 웹 개발에서 CSS의 중요성을 소개하여 기초를 다집니다. HTML 요소의 시각적 모양을 제어하고 사용자 경험을 향상하기 위해 CSS를 사용하는 방법을",
+    "datetime": "2023-09-01T00:00:00.000+09:00",
+    "isbn": " 9791171270170",
+    "price": 12000,
+    "publisher": "온노트",
+    "sale_price": -1,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F6429618",
+    "title": "CSS",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=6429618&q=CSS"
+  },
+  {
+    "authors": [
+      "양용석"
+    ],
+    "contents": "『CSS 수퍼파워 Sass로 디자인하라』는 저자가 직접 Sass로 CSS 디자인을 해보면서 익힌 실무 경험을 녹여낸 책이다. “Sass가 이런 것이다”가 아니라 “Sass로 이렇게 쉽게 웹 디자인을 할 수 있다”를 말하고 있는 책이다.",
+    "datetime": "2016-08-22T00:00:00.000+09:00",
+    "isbn": "8997924230 9788997924233",
+    "price": 23000,
+    "publisher": "로드북",
+    "sale_price": 20700,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F1496553%3Ftimestamp%3D20221025131754",
+    "title": "CSS 수퍼파워 Sass로 디자인하라",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=1496553&q=CSS+%EC%88%98%ED%8D%BC%ED%8C%8C%EC%9B%8C+Sass%EB%A1%9C+%EB%94%94%EC%9E%90%EC%9D%B8%ED%95%98%EB%9D%BC"
+  },
+  {
+    "authors": [],
+    "contents": "",
+    "datetime": "2017-12-05T00:00:00.000+09:00",
+    "isbn": " 9781449393199",
+    "price": 147160,
+    "publisher": "",
+    "sale_price": 125090,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F5330598%3Ftimestamp%3D20251019120025",
+    "title": "Css",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=5330598&q=Css"
+  },
+  {
+    "authors": [],
+    "contents": "",
+    "datetime": "2015-09-29T00:00:00.000+09:00",
+    "isbn": " 9781491918050",
+    "price": 89980,
+    "publisher": "",
+    "sale_price": 71990,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F3896388%3Ftimestamp%3D20251019112418",
+    "title": "Css",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=3896388&q=Css"
+  },
+  {
+    "authors": [
+      "에릭 마이어",
+      "Weyl Estelle"
+    ],
+    "contents": "",
+    "datetime": "2023-06-27T00:00:00.000+09:00",
+    "isbn": "1098117611 9781098117610",
+    "price": 118170,
+    "publisher": "O'Reilly Media",
+    "sale_price": 131890,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F6378091%3Ftimestamp%3D20250716143720",
+    "title": "Css",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=6378091&q=Css"
+  },
+  {
+    "authors": [
+      "Meyer Eric A"
+    ],
+    "contents": "",
+    "datetime": "2010-03-26T00:00:00.000+09:00",
+    "isbn": "0596527330 9780596527334",
+    "price": 60700,
+    "publisher": ".",
+    "sale_price": 54410,
+    "status": "정상판매",
+    "thumbnail": "https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F2339959%3Ftimestamp%3D20230918181355",
+    "title": "CSS",
+    "translators": [],
+    "url": "https://search.daum.net/search?w=bookpage&bookId=2339959&q=CSS"
+  }
+]
