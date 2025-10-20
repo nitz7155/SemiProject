@@ -55,6 +55,10 @@ const QnaList = ({ qnaList, setQnaList }) => {
         ))
     };
 
+    const handleDeleteQna = (id) => {
+        setQnaList(prev => prev.filter(qna => qna.id !== id));
+    };
+
     return (
         <div>
             <h1>질문 목록 ({qnaList.length})</h1>
@@ -62,15 +66,15 @@ const QnaList = ({ qnaList, setQnaList }) => {
                 <div key={qna.id}>
                     <div style={{'border': '1px solid black'}}>
                         <div>{qna.asker}<span>  🕒{qna.created_at}</span></div>
-                        <p style={{'display': 'flex', 'justifyContent': 'space-between'}}>
+                        <div style={{'display': 'flex', 'justifyContent': 'space-between'}}>
                             {qna.content}
                             <div style={{'display': 'flex', 'gap': '20px'}}>
                                 <div onClick={() => handleDivClick(qna.id)}>답변하기</div>
-                                <div>삭제하기</div>
+                                <div onClick={() => handleDeleteQna(qna.id)}>삭제하기</div>
                             </div>
-                        </p>
+                        </div>
                     </div>
-                    <QnaComments comments={qna.comments}/>
+                    <QnaComments comments={qna.comments} setQnaList={setQnaList}/>
                     {activeId === qna.id && (
                         <form onSubmit={(e) => handleFormSubmit(e, qna.id)}>
                             <p>답변자 이름</p>
