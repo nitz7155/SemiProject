@@ -1,10 +1,11 @@
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, useParams} from 'react-router-dom'
 import {useState} from 'react'
 import Tab from '../components/tab';
 import ReviewForm from '../components/reviewform';
 import QnaForm from '../components/QnaForm';
 
 function BookDetail(){
+    const {id} = useParams();
     const navigate = useNavigate()
     const [flag, setFlag] = useState(false);
 

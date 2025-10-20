@@ -11,7 +11,7 @@ export default function SearchResultList({ results }) {
             {results.map(book => (
                 <Link
                     key={book.isbn13}
-                    to={`/book/${book.isbn13}`}
+                    to={`/books/${book.id}`}
                     className="card"
                     style={{ margin: 10 }}
                 >
