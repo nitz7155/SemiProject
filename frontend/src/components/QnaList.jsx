@@ -1,20 +1,21 @@
 import { useState, useRef } from "react";
 import QnaComments from "./QnaComments.jsx";
 
+// TODO: 아래 주석 구현
+// user_id, nickname은 useEffect에서 비동기처리로 값 가져옴
+// useEffect로 nickname을 useState 훅에 세팅함
+// useEffect로 ref설정 current.focus()로 댓글 내용 포커스
+const user_id = 0;
+const nickname = '홍길동';
+
 const QnaList = ({ qnaList, setQnaList }) => {
-    const [answerer, setAnswerer] = useState('');
+    const [answerNickname, setAnswerNickname] = useState(nickname);
     const [comment, setComment] = useState('');
     const [activeId, setActiveId] = useState(null);
-    const nameRef = useRef(null);
     const contentRef = useRef(null);
     const [increment, setIncrement] = useState(0);
-
-    const handleInputKeyDown = (e, currentRef) => {
-        if (e.key === 'Enter' && currentRef === nameRef) {
-            e.preventDefault();
-            contentRef.current.focus();
-        }
-    };
+    const [qnaEdit, setQnaEdit] = useState('');
+    const [qnaActiveId, setQnaActiveId] = useState(null);
 
     const toggleActiveId = (id) => {
         setActiveId((prev) => (prev === id ? null : id));
@@ -26,37 +27,48 @@ const QnaList = ({ qnaList, setQnaList }) => {
 
     const handleFormSubmit = (e, id) => {
         e.preventDefault();
-
-        if (!answerer) {
-            return alert('이름을 입력하세요')
-        } else if (!comment) {
-            return alert('댓글 내용을 입력하세요')
-        }
         toggleActiveId(id);
 
-        const year = new Date().getFullYear();
-        const month = String(new Date().getMonth() + 1).padStart(2, "0");
-        const date = String(new Date().getDate()).padStart(2, "0");
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const date = String(now.getDate()).padStart(2, '0');
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+
         const data = {
             "id": increment,
-            "asker_id": id,
-            "answerer": answerer,
+            "user_id": user_id,
+            "answer_nickname": answerNickname,
             "comment": comment,
-            "created_at": `${year}-${month}-${date}`
+            "created_at": `${year}-${month}-${date} ${hours}:${minutes}:${seconds}`,
+            "updated_at": ''
         }
 
         setIncrement((prev) => prev + 1);
-        setAnswerer('');
         setComment('');
         setQnaList((prev) => prev.map((qna) =>
-            qna.id === id
-            ? { ...qna, comments: [...qna.comments, data] }
-            : qna
+            qna.id === id ? { ...qna, comments: [...qna.comments, data] } : qna
         ))
     };
 
     const handleDeleteQna = (id) => {
         setQnaList(prev => prev.filter(qna => qna.id !== id));
+    };
+
+    const handleEditQna = (id, content) => {
+        if (qnaActiveId !== null) {
+            setQnaList(prev => prev.map(qna =>
+                qna.id === id ?
+                { ...qna, "content": qnaEdit } :
+                qna
+            ));
+            setQnaEdit('');
+        } else {
+            setQnaEdit(content);
+        }
+        setQnaActiveId(prev => prev !== null ? null : id);
     };
 
     return (
@@ -65,27 +77,31 @@ const QnaList = ({ qnaList, setQnaList }) => {
             {qnaList.map((qna) => (
                 <div key={qna.id}>
                     <div style={{'border': '1px solid black'}}>
-                        <div>{qna.asker}<span>  🕒{qna.created_at}</span></div>
+                        <div>제목: {qna.title}  🕒{qna.created_at} 작성자: {qna.question_nickname}</div>
                         <div style={{'display': 'flex', 'justifyContent': 'space-between'}}>
-                            {qna.content}
+                            {qnaActiveId === qna.id ? (
+                                <textarea style={{'resize': 'none'}}
+                                          value={qnaEdit}
+                                          onChange={(e) =>
+                                                    setQnaEdit(e.target.value)}/>
+                            ) : (
+                                qna.content
+                            )}
                             <div style={{'display': 'flex', 'gap': '20px'}}>
-                                <div onClick={() => handleDivClick(qna.id)}>답변하기</div>
+                                <div onClick={() => handleEditQna(qna.id, qna.content)}>수정하기</div>
                                 <div onClick={() => handleDeleteQna(qna.id)}>삭제하기</div>
+                                <div onClick={() => handleDivClick(qna.id)}>답변하기</div>
                             </div>
                         </div>
                     </div>
                     <QnaComments comments={qna.comments} setQnaList={setQnaList}/>
                     {activeId === qna.id && (
                         <form onSubmit={(e) => handleFormSubmit(e, qna.id)}>
-                            <p>답변자 이름</p>
-                            <input ref={nameRef}
-                                   value={answerer}
-                                   type="text"
-                                   placeholder="답변자 이름"
-                                   onChange={(e) => setAnswerer(e.target.value)}
-                                   onKeyDown={handleInputKeyDown}/>
+                            <p>답변자 이름: {answerNickname}</p>
                             <p>답변 내용</p>
-                            <textarea ref={contentRef}
+                            <textarea style={{'resize': 'none'}}
+                                      required
+                                      ref={contentRef}
                                       value={comment}
                                       rows="5" cols="50"
                                       placeholder="댓글을 입력하세요"

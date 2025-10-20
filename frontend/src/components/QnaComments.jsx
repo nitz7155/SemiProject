@@ -15,18 +15,20 @@ const QnaComments = ({ comments, setQnaList }) => {
         })));
     };
 
-    const handleEditComment = (id, e) => {
-        if (activeId) {
+    const handleEditComment = (id, comment) => {
+        if (activeId !== null) {
             setQnaList(prev => prev.map(qna => ({
                 ...qna,
                 comments: qna.comments.map(comment => (
                     comment.id === id ?
-                    { ...comment, comment: changeComment} :
+                    { ...comment, "comment": changeComment } :
                     comment
                 ))
             })));
+            setChangeComment('');
+        } else {
+             setChangeComment(comment);
         }
-        setChangeComment(e.target.value);
         toggleId(id);
     };
 
@@ -34,16 +36,18 @@ const QnaComments = ({ comments, setQnaList }) => {
         <div style={{'width': '95%', 'marginLeft': 'auto'}}>
             {comments.map((comment) => (
                 <div key={comment.id} style={{'border': '1px solid black'}}>
-                    <div>{comment.answerer}<span>  🕒{comment.created_at}</span></div>
+                    <div>{comment.answer_nickname}<span>  🕒{comment.created_at}</span></div>
                     <div style={{'display': 'flex', 'justifyContent': 'space-between'}}>
                         {activeId === comment.id ? (
-                            <textarea onChange={(e) => setChangeComment(e.target.value)}
-                                      value={changeComment}>{comment.comment}</textarea>
+                            <textarea style={{'resize': 'none'}}
+                                      required
+                                      onChange={(e) => setChangeComment(e.target.value)}
+                                      value={changeComment}></textarea>
                         ) : (
                             <div>{comment.comment}</div>
                         )}
                         <div style={{'display': 'flex', 'gap': '20px'}}>
-                            <div onClick={(e) => handleEditComment(comment.id, e)}>수정하기</div>
+                            <div onClick={() => handleEditComment(comment.id, comment.comment)}>수정하기</div>
                             <div onClick={() => handleDeleteComment(comment.id)}>삭제하기</div>
                         </div>
                     </div>
