@@ -1,5 +1,6 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import QnaComments from "./QnaComments.jsx";
+import QnaSetDate from './QnaSetDate';
 
 // TODO: 아래 주석 구현
 // user_id, nickname은 useEffect에서 비동기처리로 값 가져옴
@@ -10,12 +11,13 @@ const nickname = '홍길동';
 
 const QnaList = ({ qnaList, setQnaList }) => {
     const [answerNickname, setAnswerNickname] = useState(nickname);
-    const [comment, setComment] = useState('');
+    const [content, setContent] = useState('');
     const [activeId, setActiveId] = useState(null);
     const contentRef = useRef(null);
     const [increment, setIncrement] = useState(0);
     const [qnaEdit, setQnaEdit] = useState('');
     const [qnaActiveId, setQnaActiveId] = useState(null);
+    const [activeIndex, setActiveIndex] = useState(null);
 
     const toggleActiveId = (id) => {
         setActiveId((prev) => (prev === id ? null : id));
@@ -29,25 +31,18 @@ const QnaList = ({ qnaList, setQnaList }) => {
         e.preventDefault();
         toggleActiveId(id);
 
-        const now = new Date();
-        const year = now.getFullYear();
-        const month = String(now.getMonth() + 1).padStart(2, '0');
-        const date = String(now.getDate()).padStart(2, '0');
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        const seconds = String(now.getSeconds()).padStart(2, '0');
-
         const data = {
             "id": increment,
+            "question_id": id,
             "user_id": user_id,
             "answer_nickname": answerNickname,
-            "comment": comment,
-            "created_at": `${year}-${month}-${date} ${hours}:${minutes}:${seconds}`,
+            "content": content,
+            "created_at": QnaSetDate(),
             "updated_at": ''
         }
 
         setIncrement((prev) => prev + 1);
-        setComment('');
+        setContent('');
         setQnaList((prev) => prev.map((qna) =>
             qna.id === id ? { ...qna, comments: [...qna.comments, data] } : qna
         ))
@@ -58,10 +53,10 @@ const QnaList = ({ qnaList, setQnaList }) => {
     };
 
     const handleEditQna = (id, content) => {
-        if (qnaActiveId !== null) {
+        if (qnaActiveId !== null && id === qnaActiveId) {
             setQnaList(prev => prev.map(qna =>
                 qna.id === id ?
-                { ...qna, "content": qnaEdit } :
+                { ...qna, "content": qnaEdit, "updated_at": QnaSetDate()} :
                 qna
             ));
             setQnaEdit('');
@@ -77,7 +72,19 @@ const QnaList = ({ qnaList, setQnaList }) => {
             {qnaList.map((qna) => (
                 <div key={qna.id}>
                     <div style={{'border': '1px solid black'}}>
-                        <div>제목: {qna.title}  🕒{qna.created_at} 작성자: {qna.question_nickname}</div>
+                        <div style={{'display': 'flex', 'justifyContent': 'space-between'}}>
+                            <div>
+                                제목: {qna.title}
+                            </div>
+                            <div>
+                                {qna.question_nickname}
+                                {qna.updated_at ? (
+                                    <span>  {qna.updated_at}(수정됨)</span>
+                                ) : (
+                                    <span>  {qna.created_at}</span>
+                                )}
+                            </div>
+                        </div>
                         <div style={{'display': 'flex', 'justifyContent': 'space-between'}}>
                             {qnaActiveId === qna.id ? (
                                 <textarea style={{'resize': 'none'}}
@@ -94,7 +101,10 @@ const QnaList = ({ qnaList, setQnaList }) => {
                             </div>
                         </div>
                     </div>
-                    <QnaComments comments={qna.comments} setQnaList={setQnaList}/>
+                    <QnaComments comments={qna.comments}
+                                 setQnaList={setQnaList}
+                                 isActive={activeIndex === qna.id}
+                                 onActivate={() => setActiveIndex(qna.id)}/>
                     {activeId === qna.id && (
                         <form onSubmit={(e) => handleFormSubmit(e, qna.id)}>
                             <p>답변자 이름: {answerNickname}</p>
@@ -102,10 +112,10 @@ const QnaList = ({ qnaList, setQnaList }) => {
                             <textarea style={{'resize': 'none'}}
                                       required
                                       ref={contentRef}
-                                      value={comment}
+                                      value={content}
                                       rows="5" cols="50"
                                       placeholder="댓글을 입력하세요"
-                                      onChange={(e) => setComment(e.target.value)}/>
+                                      onChange={(e) => setContent(e.target.value)}/>
                             <br/>
                             <button type="submit">댓글 등록</button>
                         </form>

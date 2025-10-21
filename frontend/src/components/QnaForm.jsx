@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import QnaList from "./QnaList.jsx";
+import QnaSetDate from './QnaSetDate';
 
 /*
 * 임시 테이블 구조
@@ -23,7 +24,7 @@ const book_id = 0;
 
 // TODO: props로 book_id 전달 받기
 const QnaForm = () => {
-    const nameRef = useRef(null);
+    const titleRef = useRef(null);
     const contentRef = useRef(null);
     const [qnaList, setQnaList] = useState([]);
     const [title, setTitle] = useState('');
@@ -31,11 +32,11 @@ const QnaForm = () => {
     const [increment, setIncrement] = useState(0);
 
     useEffect(() => {
-        nameRef.current.focus()
+        titleRef.current.focus()
     }, []);
 
-    const handleInputKeyDown = (e, currentRef) => {
-        if (e.key === 'Enter' && currentRef === nameRef) {
+    const handleInputKeyDown = (e) => {
+        if (e.key === 'Enter') {
             e.preventDefault();
             contentRef.current.focus();
         }
@@ -44,14 +45,6 @@ const QnaForm = () => {
     const handleFormSubmit = (e) => {
         e.preventDefault();
 
-        const now = new Date();
-        const year = now.getFullYear();
-        const month = String(now.getMonth() + 1).padStart(2, '0');
-        const date = String(now.getDate()).padStart(2, '0');
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        const seconds = String(now.getSeconds()).padStart(2, '0');
-
         const data = {
             "id": increment,
             "user_id": user_id,
@@ -59,8 +52,8 @@ const QnaForm = () => {
             "book_id": book_id,
             "title": title,
             "content": content,
-            "comments": [], // 조인해서 값 들어감
-            "created_at": `${year}-${month}-${date} ${hours}:${minutes}:${seconds}`,
+            "comments": [],
+            "created_at": QnaSetDate(),
             "updated_at": ''
         };
 
@@ -79,12 +72,12 @@ const QnaForm = () => {
             <form onSubmit={handleFormSubmit}>
                 <p>제목</p>
                 <input required
-                       ref={nameRef}
+                       ref={titleRef}
                        value={title}
                        type="text"
                        placeholder="제목을 입력하세요"
                        onChange={(e) => setTitle(e.target.value)}
-                       onKeyDown={(e) => handleInputKeyDown(e, nameRef)}/>
+                       onKeyDown={(e) => handleInputKeyDown(e)}/>
                 <p>질문 내용</p>
                 <textarea style={{'resize': 'none'}}
                           required
