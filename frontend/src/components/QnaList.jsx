@@ -5,7 +5,6 @@ import QnaSetDate from './QnaSetDate';
 // TODO: 아래 주석 구현
 // user_id, nickname은 useEffect에서 비동기처리로 값 가져옴
 // useEffect로 nickname을 useState 훅에 세팅함
-// useEffect로 ref설정 current.focus()로 댓글 내용 포커스
 const user_id = 0;
 const nickname = '홍길동';
 
@@ -14,10 +13,23 @@ const QnaList = ({ qnaList, setQnaList }) => {
     const [content, setContent] = useState('');
     const [activeId, setActiveId] = useState(null);
     const contentRef = useRef(null);
+    const editRef = useRef(null);
     const [increment, setIncrement] = useState(0);
     const [qnaEdit, setQnaEdit] = useState('');
     const [qnaActiveId, setQnaActiveId] = useState(null);
-    const [activeIndex, setActiveIndex] = useState(null);
+    const [editActive, setEditActive] = useState({ parentId: null, childId: null });
+
+    useEffect(() => {
+        if (activeId !== null) {
+            contentRef.current.focus();
+        }
+    }, [activeId]);
+
+    useEffect(() => {
+        if (qnaActiveId !== null && editActive.parentId === null) {
+            editRef.current.focus();
+        }
+    }, [qnaActiveId, editActive]);
 
     const toggleActiveId = (id) => {
         setActiveId((prev) => (prev === id ? null : id));
@@ -53,17 +65,22 @@ const QnaList = ({ qnaList, setQnaList }) => {
     };
 
     const handleEditQna = (id, content) => {
-        if (qnaActiveId !== null && id === qnaActiveId) {
+        if (qnaEdit === content) {
+            setQnaEdit('');
+            setQnaActiveId(null);
+        } else if (id === qnaActiveId && editActive.parentId === null) {
             setQnaList(prev => prev.map(qna =>
                 qna.id === id ?
                 { ...qna, "content": qnaEdit, "updated_at": QnaSetDate()} :
                 qna
             ));
             setQnaEdit('');
+            setQnaActiveId(null);
         } else {
             setQnaEdit(content);
+            setQnaActiveId(id);
         }
-        setQnaActiveId(prev => prev !== null ? null : id);
+        setEditActive({ parentId: null, childId: null });
     };
 
     return (
@@ -86,8 +103,10 @@ const QnaList = ({ qnaList, setQnaList }) => {
                             </div>
                         </div>
                         <div style={{'display': 'flex', 'justifyContent': 'space-between'}}>
-                            {qnaActiveId === qna.id ? (
-                                <textarea style={{'resize': 'none'}}
+                            {qnaActiveId === qna.id && editActive.parentId === null ? (
+                                <textarea ref={editRef}
+                                          style={{'resize': 'none'}}
+                                          required
                                           value={qnaEdit}
                                           onChange={(e) =>
                                                     setQnaEdit(e.target.value)}/>
@@ -101,10 +120,12 @@ const QnaList = ({ qnaList, setQnaList }) => {
                             </div>
                         </div>
                     </div>
-                    <QnaComments comments={qna.comments}
+                    <QnaComments setQnaActiveId={setQnaActiveId}
+                                 comments={qna.comments}
                                  setQnaList={setQnaList}
-                                 isActive={activeIndex === qna.id}
-                                 onActivate={() => setActiveIndex(qna.id)}/>
+                                 parentId={qna.id}
+                                 editActive={editActive}
+                                 setEditActive={setEditActive}/>
                     {activeId === qna.id && (
                         <form onSubmit={(e) => handleFormSubmit(e, qna.id)}>
                             <p>답변자 이름: {answerNickname}</p>
