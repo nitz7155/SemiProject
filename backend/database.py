@@ -4,14 +4,12 @@ from sqlalchemy.orm import Session
 
 # PostgreSQL 연결 문자열
 # db url 필요
-DATABASE_URL = ""
+DATABASE_URL = "sqlite:///./test.db"
 
 # 엔진 및 세션 설정
 engine = create_engine(
     DATABASE_URL,
-    pool_size = 10,
-    max_overflow = 20,
-    pool_timeout = 30
+    connect_args={'check_same_thread': False}
     )
 
 # 세션 
@@ -29,3 +27,6 @@ def get_db():
         yield db
     finally:
         db.close()
+
+def create_tables():
+    Base.metadata.create_all(bind=engine)

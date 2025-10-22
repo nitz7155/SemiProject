@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String, Boolean, Date
-from .database import Base
+from database import Base
+
 
 class Book(Base):
     __tablename__ = "books"
@@ -15,3 +16,12 @@ class Book(Base):
     contents = Column(String)
     status = Column(Boolean)
     category = Column(String)
+
+class User(Base):
+    __tablename__ = "users"g
+
+class Question(Base):
+    __tablename__ = "questions"
+
+class Answers(Base):
+    __tablename__ = "answers"
