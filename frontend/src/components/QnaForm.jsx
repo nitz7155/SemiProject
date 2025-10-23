@@ -2,19 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import QnaList from "./QnaList.jsx";
 import QnaSetDate from './QnaSetDate';
 
-/*
-* 임시 테이블 구조
-* questions(
-*   id PK, user_id FK->users, book_id FK->books, title, content, created_at, updated_at
-* )
-* answers(
-*   id PK, question_id FK->questions, user_id FK->users, comment, created_at, updated_at
-* )
-* users(
-*   id PK, email UNIQUE, password_hash, nickname, created_at
-* )
-* */
-
 // 임시 유저 아이디
 const user_id = 0;
 // 임시 유저 닉네임, 조인으로 가져오기
@@ -23,7 +10,7 @@ const user_nickname = '홍길동';
 const book_id = 0;
 
 // TODO: props로 book_id 전달 받기
-const QnaForm = () => {
+const QnaForm = ({ bookId }) => {
     const titleRef = useRef(null);
     const contentRef = useRef(null);
     const [qnaList, setQnaList] = useState([]);
@@ -52,9 +39,9 @@ const QnaForm = () => {
             "book_id": book_id,
             "title": title,
             "content": content,
-            "comments": [],
             "created_at": QnaSetDate(),
-            "updated_at": ''
+            "updated_at": '',
+            "comments": [],
         };
 
         setIncrement((prev) => prev + 1);
