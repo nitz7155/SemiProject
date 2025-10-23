@@ -9,6 +9,7 @@ import uvicorn
 async def lifespan(app: FastAPI):
     create_tables()
     yield
+
 app = FastAPI(lifespan=lifespan)
 
 app.add_middleware(

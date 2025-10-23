@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from . import models, schemas
+import models, schemas
 
 def get_books(db: Session, query: str = "", category: str = ""):
     q = db.query(models.Book)

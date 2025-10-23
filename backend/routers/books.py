@@ -1,7 +1,7 @@
 # app/routers/books.py
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from .. import crud, schemas, database
+import crud, schemas, database
 
 router = APIRouter(prefix="/books",
                    tags=["Books"])

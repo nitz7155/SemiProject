@@ -1,6 +1,6 @@
 import json
 import pandas as pd
-from . import models, database
+import models, database
 
 def seed_from_json():
     with open("book_kakao_cleaned.json", encoding="utf-8") as f:
