@@ -20,7 +20,7 @@ function BookDetail(){
             {/* 탭 */}
             <Tab flag={flag} setFlag={setFlag}/>
             {/* 탭 누르는 결과에 따라 리뷰 또는 QnA로 이동 */}
-            {!flag ? <ReviewForm /> : <QnaForm bookId={id}/>}
+            {!flag ? <ReviewForm /> : <QnaForm bookId={1}/>}
         </main>
     )
 }

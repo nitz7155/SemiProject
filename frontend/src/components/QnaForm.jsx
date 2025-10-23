@@ -1,26 +1,35 @@
 import { useState, useEffect, useRef } from "react";
 import QnaList from "./QnaList.jsx";
-import QnaSetDate from './QnaSetDate';
 
-// 임시 유저 아이디
-const user_id = 0;
-// 임시 유저 닉네임, 조인으로 가져오기
-const user_nickname = '홍길동';
-// 임시 책 번호
-const book_id = 0;
-
-// TODO: props로 book_id 전달 받기
+// TODO: 쿠키로 로그인한 유저가 아니면 글작성, 글삭제, 글수정, 댓글작성, 댓글수정, 댓글삭제 막아버리기
 const QnaForm = ({ bookId }) => {
     const titleRef = useRef(null);
     const contentRef = useRef(null);
     const [qnaList, setQnaList] = useState([]);
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
-    const [increment, setIncrement] = useState(0);
+    const [reload, setReload] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
-        titleRef.current.focus()
-    }, []);
+        titleRef.current.focus();
+        (async () => {
+            try {
+                const res = await fetch(`http://localhost:8000/books/${bookId}/questions`);
+
+                if (res.status === 404) {
+                    setQnaList([])
+                } else if (!res.ok) {
+                    throw new Error(`${res.status}`);
+                } else {
+                    const result = await res.json();
+                    setQnaList(result);
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        })();
+    }, [bookId, reload]);
 
     const handleInputKeyDown = (e) => {
         if (e.key === 'Enter') {
@@ -29,51 +38,68 @@ const QnaForm = ({ bookId }) => {
         }
     };
 
-    const handleFormSubmit = (e) => {
+    const handleFormSubmit = async (e) => {
         e.preventDefault();
+        setIsSubmitting(true);
 
         const data = {
-            "id": increment,
-            "user_id": user_id,
-            "question_nickname": user_nickname,
-            "book_id": book_id,
             "title": title,
             "content": content,
-            "created_at": QnaSetDate(),
-            "updated_at": '',
-            "comments": [],
         };
 
-        setIncrement((prev) => prev + 1);
         setTitle('');
         setContent('');
-        setQnaList((prev) => [
-            ...prev,
-            data
-        ]);
+
+        try {
+            const res = await fetch(`http://localhost:8000/books/${bookId}/questions`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (res.status === 404) {
+                setQnaList([])
+            } else if (!res.ok) {
+                throw new Error(`${res.status}`);
+            } else {
+                setReload(prev => !prev);
+            }
+        } catch (e) {
+            console.error(e);
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
         <div>
             <h1>도서 Q&A</h1>
             <form onSubmit={handleFormSubmit}>
-                <p>제목</p>
-                <input required
-                       ref={titleRef}
-                       value={title}
-                       type="text"
-                       placeholder="제목을 입력하세요"
-                       onChange={(e) => setTitle(e.target.value)}
-                       onKeyDown={(e) => handleInputKeyDown(e)}/>
+                <p>질문 제목</p>
+                <input
+                    required
+                    disabled={isSubmitting}
+                    ref={titleRef}
+                    value={title}
+                    type="text"
+                    placeholder="제목을 입력하세요"
+                    onChange={(e) => setTitle(e.target.value)}
+                    onKeyDown={(e) => handleInputKeyDown(e)}
+                />
                 <p>질문 내용</p>
-                <textarea style={{'resize': 'none'}}
-                          required
-                          ref={contentRef}
-                          value={content}
-                          rows="5" cols="50"
-                          placeholder="궁금한 점을 질문해주세요"
-                          onChange={(e) => setContent(e.target.value)}/>
-                <br/>
+                <textarea
+                    required
+                    disabled={isSubmitting}
+                    style={{ 'resize': 'none' }}
+                    ref={contentRef}
+                    value={content}
+                    rows="5" cols="50"
+                    placeholder="궁금한 점을 질문해주세요"
+                    onChange={(e) => setContent(e.target.value)}
+                />
+                <br />
                 <button type="submit">질문 등록</button>
             </form>
             <QnaList qnaList={qnaList} setQnaList={setQnaList}/>

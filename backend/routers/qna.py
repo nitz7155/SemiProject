@@ -10,15 +10,15 @@ router = APIRouter(prefix="/books", tags=["QnA"])
 
 def check_book(book_id: int, db: Session):
     """ 책 존재 여부 검증 """
-    data = db.query(Book).filter(Book.id == book_id).first()
+    book = db.query(Book).filter(Book.id == book_id).first()
 
-    if not data:
+    if not book:
         raise HTTPException(status_code=404, detail="책을 찾을 수 없습니다.")
 
 @router.get("/nickname/")
 def get_nickname(user_info: str = Cookie(None)):
     if not user_info:
-        user_info = {"user_id": 0, "nickname": "홍길동"}
+        user_info = {"user_id": 1, "nickname": "홍길동"}
     else:
         try:
             user_info = loads(user_info)
@@ -42,10 +42,6 @@ def read_questions(book_id: int, db: Session=Depends(get_db)):
           .filter(Question.book_id == book_id)
           .all()
     )
-
-    if not questions:
-        raise HTTPException(status_code=404, detail="QnA를 찾을 수 없습니다.")
-
     results = []
 
     for q in questions: # type: Question
@@ -82,7 +78,7 @@ def create_question(data: QuestionCreate, book_id: int, user_info: str = Cookie(
     check_book(book_id, db) # user_info -> user_id, nickname
 
     if not user_info:
-        user_info = {"user_id": 0, "nickname": "홍길동"}
+        user_info = {"user_id": 1, "nickname": "홍길동"}
     else:
         try:
             user_info = loads(user_info)
@@ -141,7 +137,7 @@ def create_answer(data: AnswerCreate, book_id: int, question_id: int, user_info:
     check_book(book_id, db)
 
     if not user_info:
-        user_info = {"user_id": 0, "nickname": "홍길동"}
+        user_info = {"user_id": 1, "nickname": "홍길동"}
     else:
         try:
             user_info = loads(user_info)

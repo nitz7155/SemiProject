@@ -6,8 +6,10 @@ from database import Base
 
 class Book(Base):
     __tablename__ = "books"
+    __table_args__ = {'sqlite_autoincrement': True}  # SQLite 에서만 사용
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
+    # PostgreSQL에선 id = Column(Integer, primary_key=True, autoincrement=True)
+    id = Column(Integer, primary_key=True)
     title = Column(String)
     authors = Column(String)
     publisher = Column(String)
@@ -26,8 +28,10 @@ class Book(Base):
 
 class User(Base):
     __tablename__ = "users"
+    __table_args__ = {'sqlite_autoincrement': True} # SQLite 에서만 사용
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
+    # PostgreSQL에선 id = Column(Integer, primary_key=True, autoincrement=True)
+    id = Column(Integer, primary_key=True)
     email = Column(String, unique=True, nullable=False)
     password = Column(String, nullable=False)
     nickname = Column(String, nullable=False)
@@ -44,8 +48,10 @@ class User(Base):
 
 class Question(Base):
     __tablename__ = "questions"
+    __table_args__ = {'sqlite_autoincrement': True} # SQLite 에서만 사용
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
+    # PostgreSQL에선 id = Column(Integer, primary_key=True, autoincrement=True)
+    id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
     book_id = Column(Integer, ForeignKey("books.id", ondelete="CASCADE"), nullable=False)
     title = Column(Text)
@@ -59,8 +65,10 @@ class Question(Base):
 
 class Answer(Base):
     __tablename__ = "answers"
+    __table_args__ = {'sqlite_autoincrement': True} # SQLite 에서만 사용
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
+    # PostgreSQL에선 id = Column(Integer, primary_key=True, autoincrement=True)
+    id = Column(Integer, primary_key=True)
     question_id = Column(Integer, ForeignKey("questions.id", ondelete="CASCADE"), nullable=False)
     user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
     content = Column(Text)
