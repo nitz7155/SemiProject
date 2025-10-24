@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, Response, Cookie
 from sqlalchemy.orm import Session, selectinload
 
 from database import get_db
-from models import Book, Question, Answer
+from models import Book, Question, Answer, User
 from schemas import QuestionResponse, QuestionCreate, QuestionUpdate, AnswerResponse, AnswerCreate, AnswerUpdate
 from json import loads, JSONDecodeError
 
@@ -14,18 +14,6 @@ def check_book(book_id: int, db: Session):
 
     if not book:
         raise HTTPException(status_code=404, detail="책을 찾을 수 없습니다.")
-
-@router.get("/nickname/")
-def get_nickname(user_info: str = Cookie(None)):
-    if not user_info:
-        user_info = {"user_id": 1, "nickname": "홍길동"}
-    else:
-        try:
-            user_info = loads(user_info)
-        except JSONDecodeError:
-            raise HTTPException(status_code=401, detail="유저 정보가 잘못되었습니다.")
-
-    return {"user_id": user_info["user_id"]}
 
 @router.get("/{book_id}/questions", response_model=list[QuestionResponse])
 def read_questions(book_id: int, db: Session=Depends(get_db)):
@@ -85,6 +73,11 @@ def create_question(data: QuestionCreate, book_id: int, user_info: str = Cookie(
         except JSONDecodeError:
             raise HTTPException(status_code=401, detail="유저 정보가 잘못되었습니다.")
 
+    user = db.query(User).filter(User.id == user_info["user_id"]).first()
+
+    if not user:
+        raise HTTPException(status_code=404, detail="해당되는 유저가 없습니다.")
+
     question = Question(
         user_id=int(user_info["user_id"]),
         book_id=book_id,
@@ -108,7 +101,6 @@ def update_question(data: QuestionUpdate, book_id: int, question_id: int, db: Se
     if not question:
         raise HTTPException(status_code=404, detail="질문을 찾을 수 없습니다.")
 
-    question.title = data.title
     question.content = data.content
 
     db.commit()
@@ -143,6 +135,11 @@ def create_answer(data: AnswerCreate, book_id: int, question_id: int, user_info:
             user_info = loads(user_info)
         except JSONDecodeError:
             raise HTTPException(status_code=401, detail="유저 정보가 잘못되었습니다.")
+
+    user = db.query(User).filter(User.id == user_info["user_id"]).first()
+
+    if not user:
+        raise HTTPException(status_code=404, detail="해당되는 유저가 없습니다.")
 
     answer = Answer(
         user_id=int(user_info["user_id"]),

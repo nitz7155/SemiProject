@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import QnaList from "./QnaList.jsx";
 
-// TODO: 쿠키로 로그인한 유저가 아니면 글작성, 글삭제, 글수정, 댓글작성, 댓글수정, 댓글삭제 막아버리기
 const QnaForm = ({ bookId }) => {
     const titleRef = useRef(null);
     const contentRef = useRef(null);
@@ -102,7 +101,7 @@ const QnaForm = ({ bookId }) => {
                 <br />
                 <button type="submit">질문 등록</button>
             </form>
-            <QnaList qnaList={qnaList} setQnaList={setQnaList}/>
+            <QnaList qnaList={qnaList} setReload={setReload} bookId={bookId}/>
         </div>
     );
 };

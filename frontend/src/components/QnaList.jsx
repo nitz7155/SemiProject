@@ -1,23 +1,15 @@
 import { useState, useRef, useEffect } from "react";
 import QnaComments from "./QnaComments.jsx";
-import QnaSetDate from './QnaSetDate';
 
-// TODO: 아래 주석 구현
-// user_id, nickname은 useEffect에서 비동기처리로 값 가져옴
-// useEffect로 nickname을 useState 훅에 세팅함
-const user_id = 0;
-const nickname = '홍길동';
-
-const QnaList = ({ qnaList, setQnaList }) => {
-    const [answerNickname, setAnswerNickname] = useState(nickname);
+const QnaList = ({ qnaList, setReload, bookId }) => {
     const [content, setContent] = useState('');
     const [activeId, setActiveId] = useState(null);
     const contentRef = useRef(null);
     const editRef = useRef(null);
-    const [increment, setIncrement] = useState(0);
     const [qnaEdit, setQnaEdit] = useState('');
     const [qnaActiveId, setQnaActiveId] = useState(null);
     const [editActive, setEditActive] = useState({ parentId: null, childId: null });
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
         if (activeId !== null) {
@@ -39,46 +31,87 @@ const QnaList = ({ qnaList, setQnaList }) => {
         toggleActiveId(id);
     };
 
-    const handleFormSubmit = (e, id) => {
+    const handleFormSubmit = async (e, question_id) => {
         e.preventDefault();
-        toggleActiveId(id);
-
+        toggleActiveId(question_id);
+        setIsSubmitting(true);
         const data = {
-            "id": increment,
-            "question_id": id,
-            "user_id": user_id,
-            "answer_nickname": answerNickname,
-            "content": content,
-            "created_at": QnaSetDate(),
-            "updated_at": ''
+            "content": content
+        };
+
+        try {
+            const res = await fetch(`http://localhost:8000/books/${bookId}/questions/${question_id}/answers`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (!res.ok) {
+                throw new Error(`${res.status}`);
+            }
+            setReload(prev => !prev);
+        } catch (e) {
+            console.error(e);
+        } finally {
+            setContent('');
+            setIsSubmitting(false);
         }
-
-        setIncrement((prev) => prev + 1);
-        setContent('');
-        setQnaList((prev) => prev.map((qna) =>
-            qna.id === id ? { ...qna, comments: [...qna.comments, data] } : qna
-        ))
     };
 
-    const handleDeleteQna = (id) => {
-        setQnaList(prev => prev.filter(qna => qna.id !== id));
+    const handleDeleteQna = async (question_id) => {
+        try {
+            setIsSubmitting(true);
+            const res = await fetch(`http://localhost:8000/books/${bookId}/questions/${question_id}`, {
+                method: "DELETE"
+            });
+
+            if (!res.ok) {
+                throw new Error(`${res.status}`);
+            }
+            setReload(prev => !prev);
+        } catch (e) {
+            console.error(e);
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
-    const handleEditQna = (id, content) => {
+    const handleEditQna = async (question_id, content) => {
         if (qnaEdit === content) {
             setQnaEdit('');
             setQnaActiveId(null);
-        } else if (id === qnaActiveId && editActive.parentId === null) {
-            setQnaList(prev => prev.map(qna =>
-                qna.id === id ?
-                { ...qna, "content": qnaEdit, "updated_at": QnaSetDate()} :
-                qna
-            ));
-            setQnaEdit('');
-            setQnaActiveId(null);
+        } else if (question_id === qnaActiveId && editActive.parentId === null) {
+            setIsSubmitting(true);
+
+            const data = {
+                "content": qnaEdit
+            };
+
+            try {
+                const res = await fetch(`http://localhost:8000/books/${bookId}/questions/${question_id}`, {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (!res.ok) {
+                    throw new Error(`${res.status}`)
+                }
+            } catch (e) {
+                console.error(e);
+            } finally {
+                setReload(prev => !prev);
+                setIsSubmitting(false);
+                setQnaEdit('');
+                setQnaActiveId(null);
+            }
         } else {
             setQnaEdit(content);
-            setQnaActiveId(id);
+            setQnaActiveId(question_id);
         }
         setEditActive({ parentId: null, childId: null });
     };
@@ -104,7 +137,8 @@ const QnaList = ({ qnaList, setQnaList }) => {
                         </div>
                         <div style={{'display': 'flex', 'justifyContent': 'space-between'}}>
                             {qnaActiveId === qna.id && editActive.parentId === null ? (
-                                <textarea ref={editRef}
+                                <textarea disabled={isSubmitting}
+                                          ref={editRef}
                                           style={{'resize': 'none'}}
                                           required
                                           value={qnaEdit}
@@ -122,13 +156,15 @@ const QnaList = ({ qnaList, setQnaList }) => {
                     </div>
                     <QnaComments setQnaActiveId={setQnaActiveId}
                                  comments={qna.comments}
-                                 setQnaList={setQnaList}
                                  parentId={qna.id}
                                  editActive={editActive}
-                                 setEditActive={setEditActive}/>
+                                 setEditActive={setEditActive}
+                                 setReload={setReload}
+                                 bookId={bookId}
+                                 questionId={qna.id}/>
                     {activeId === qna.id && (
                         <form onSubmit={(e) => handleFormSubmit(e, qna.id)}>
-                            <p>답변자 이름: {answerNickname}</p>
+                            <p>답변자 이름: {qna.question_nickname}</p>
                             <p>답변 내용</p>
                             <textarea style={{'resize': 'none'}}
                                       required

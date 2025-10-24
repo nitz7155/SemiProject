@@ -24,7 +24,6 @@ class Book(BookBase):
 ########################################################################################################################
 """ Question """
 class QuestionBase(BaseModel):
-    title: str
     content: str
 
     model_config = ConfigDict(from_attributes=True)
@@ -33,13 +32,14 @@ class QuestionResponse(QuestionBase):
     id: int
     user_id: int
     question_nickname: str
+    title: str
     book_id: int
     created_at: datetime
     updated_at: datetime | None
     comments: list["AnswerResponse"] = []
 
 class QuestionCreate(QuestionBase):
-    pass
+    title: str
 
 class QuestionUpdate(QuestionBase):
     pass

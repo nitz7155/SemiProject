@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
-import QnaSetDate from './QnaSetDate';
 
-const QnaComments = ({ setQnaActiveId, comments, setQnaList, parentId, editActive, setEditActive }) => {
+const QnaComments = ({ setQnaActiveId, comments, parentId, editActive, setEditActive, setReload, bookId, questionId }) => {
     const [activeId, setActiveId] = useState(null);
     const [content, setContent] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const contentRef = useRef(null);
 
     useEffect(() => {
@@ -12,25 +12,52 @@ const QnaComments = ({ setQnaActiveId, comments, setQnaList, parentId, editActiv
         }
     }, [editActive, parentId]);
 
-    const handleDeleteComment = (id) => {
-        setQnaList(prev => prev.map(qna => ({
-            ...qna,
-            comments: qna.comments.filter(comment => comment.id !== id)
-        })));
+    const handleDeleteComment = async (answer_id) => {
+        try {
+            setIsSubmitting(true);
+            const res = await fetch(`http://localhost:8000/books/${bookId}/questions/${questionId}/answers/${answer_id}`, {
+                method: "DELETE"
+            });
+
+            if (!res.ok) {
+                throw new Error(`${res.status}`);
+            }
+            setReload(prev => !prev);
+        } catch (e) {
+            console.error(e);
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
-    const handleEditComment = (id, comment) => {
+    const handleEditComment = async (answer_id, comment) => {
         if (comment === content) {
             /* empty */
-        } else if (activeId === id) {
-            setQnaList(prev => prev.map(qna => ({
-                ...qna,
-                comments: qna.comments.map(comment => (
-                    comment.id === id ?
-                    { ...comment, "content": content, "updated_at": QnaSetDate() } :
-                    comment
-                ))
-            })));
+        } else if (activeId === answer_id) {
+            setIsSubmitting(true);
+            const data = {
+                "content": content
+            };
+
+            try {
+                const res = await fetch(`http://localhost:8000/books/${bookId}/questions/${questionId}/answers/${answer_id}`, {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (!res.ok) {
+                    throw new Error(`${res.status}`);
+                }
+
+                setReload(prev => !prev);
+            } catch (e) {
+                console.error(e);
+            } finally {
+                setIsSubmitting(false);
+            }
         }
         setContent('');
         setActiveId(null);
@@ -54,7 +81,8 @@ const QnaComments = ({ setQnaActiveId, comments, setQnaList, parentId, editActiv
                         </div>
                         <div style={{'display': 'flex', 'justifyContent': 'space-between'}}>
                             {isActive ? (
-                                <textarea style={{'resize': 'none'}}
+                                <textarea disabled={isSubmitting}
+                                          style={{'resize': 'none'}}
                                           required
                                           ref={contentRef}
                                           onChange={(e) =>
