@@ -1,14 +1,20 @@
+from dotenv import load_dotenv
+from fastapi import Path
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 from sqlalchemy.orm import Session
+import os
 
 # PostgreSQL 연결 문자열
 # db url 필요
-DATABASE_URL = "postgresql://postgres:1234@localhost:5432/himedia"
+ENV_PATH = Path(__file__).parent / '.env'
+load_dotenv(ENV_PATH)
+
+DB_URL = os.getenv("DB_URL")
 
 # 엔진 및 세션 설정
 engine = create_engine(
-    DATABASE_URL
+    DB_URL
     )
 
 # 세션 

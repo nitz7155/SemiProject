@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import QnaList from "./QnaList.jsx";
+import { API_BASE_URL } from '../api/config';
 
 const QnaForm = ({ bookId }) => {
     const titleRef = useRef(null);
@@ -14,7 +15,7 @@ const QnaForm = ({ bookId }) => {
         titleRef.current.focus();
         (async () => {
             try {
-                const res = await fetch(`http://localhost:8000/books/${bookId}/questions`);
+                const res = await fetch(`${API_BASE_URL}/books/${bookId}/questions`);
 
                 if (res.status === 404) {
                     setQnaList([])
@@ -50,7 +51,7 @@ const QnaForm = ({ bookId }) => {
         setContent('');
 
         try {
-            const res = await fetch(`http://localhost:8000/books/${bookId}/questions`, {
+            const res = await fetch(`${API_BASE_URL}/books/${bookId}/questions`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

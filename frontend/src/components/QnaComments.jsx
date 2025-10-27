@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { API_BASE_URL } from '../api/config';
 
 const QnaComments = ({ setQnaActiveId, comments, parentId, editActive, setEditActive, setReload, bookId, questionId }) => {
     const [activeId, setActiveId] = useState(null);
@@ -15,7 +16,7 @@ const QnaComments = ({ setQnaActiveId, comments, parentId, editActive, setEditAc
     const handleDeleteComment = async (answer_id) => {
         try {
             setIsSubmitting(true);
-            const res = await fetch(`http://localhost:8000/books/${bookId}/questions/${questionId}/answers/${answer_id}`, {
+            const res = await fetch(`${API_BASE_URL}/books/${bookId}/questions/${questionId}/answers/${answer_id}`, {
                 method: "DELETE"
             });
 
@@ -40,7 +41,7 @@ const QnaComments = ({ setQnaActiveId, comments, parentId, editActive, setEditAc
             };
 
             try {
-                const res = await fetch(`http://localhost:8000/books/${bookId}/questions/${questionId}/answers/${answer_id}`, {
+                const res = await fetch(`${API_BASE_URL}/books/${bookId}/questions/${questionId}/answers/${answer_id}`, {
                     method: "PATCH",
                     headers: {
                         "Content-Type": "application/json"

@@ -5,10 +5,10 @@ import Header from './components/header'
 import Footer from './components/footer'
 import Home from './pages/home'
 import BookDetail from './pages/booksdetail'
+import { API_BASE_URL } from './api/config';
 
 
 function App() {
-  
   return (
     <div>
       <Header/>

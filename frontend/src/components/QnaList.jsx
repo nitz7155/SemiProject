@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import QnaComments from "./QnaComments.jsx";
+import { API_BASE_URL } from '../api/config';
 
 const QnaList = ({ qnaList, setReload, bookId }) => {
     const [content, setContent] = useState('');
@@ -40,7 +41,7 @@ const QnaList = ({ qnaList, setReload, bookId }) => {
         };
 
         try {
-            const res = await fetch(`http://localhost:8000/books/${bookId}/questions/${question_id}/answers`, {
+            const res = await fetch(`${API_BASE_URL}/books/${bookId}/questions/${question_id}/answers`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -63,7 +64,7 @@ const QnaList = ({ qnaList, setReload, bookId }) => {
     const handleDeleteQna = async (question_id) => {
         try {
             setIsSubmitting(true);
-            const res = await fetch(`http://localhost:8000/books/${bookId}/questions/${question_id}`, {
+            const res = await fetch(`${API_BASE_URL}/books/${bookId}/questions/${question_id}`, {
                 method: "DELETE"
             });
 
@@ -90,7 +91,7 @@ const QnaList = ({ qnaList, setReload, bookId }) => {
             };
 
             try {
-                const res = await fetch(`http://localhost:8000/books/${bookId}/questions/${question_id}`, {
+                const res = await fetch(`${API_BASE_URL}/books/${bookId}/questions/${question_id}`, {
                     method: "PATCH",
                     headers: {
                         "Content-Type": "application/json"
