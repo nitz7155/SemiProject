@@ -4,12 +4,11 @@ from sqlalchemy.orm import Session
 
 # PostgreSQL 연결 문자열
 # db url 필요
-DATABASE_URL = "sqlite:///./test.db"
+DATABASE_URL = "postgresql://postgres:1234@localhost:5432/himedia"
 
 # 엔진 및 세션 설정
 engine = create_engine(
-    DATABASE_URL,
-    connect_args={'check_same_thread': False}
+    DATABASE_URL
     )
 
 # 세션 
