@@ -4,6 +4,11 @@ const getAPIBaseURL = () => {
     // Endpoint 직전 주소 (Base URL)
     const fastAPIHost = import.meta.env.VITE_FASTAPI_HOST;
 
+    if (!fastAPIHost) {
+        console.error('❌ VITE_FASTAPI_HOST is not defined');
+        return 'http://localhost:8000'; // fallback
+    }
+
     if (fastAPIHost.startsWith('http')) {
         // 로컬 환경 ex) http://localhost:8000
         return fastAPIHost;
