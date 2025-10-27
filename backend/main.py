@@ -2,10 +2,11 @@ import os
 from contextlib import asynccontextmanager
 
 from dotenv import load_dotenv
-from fastapi import FastAPI, Path
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from database import create_tables
 from routers import qna, books
+from pathlib import Path
 import uvicorn
 
 # 환경변수 설정
